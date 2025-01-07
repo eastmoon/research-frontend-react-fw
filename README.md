@@ -9,8 +9,8 @@ React 前端框架基於 MVP 架構概念設計設計，並著重於視圖 ( Vie
 + 開發模式
     - 開發環境 ```do dev```
     - 開發伺服器 ```do dev server```
-    - 元件開發伺服器 ```do dev component```
-    - 服務開發伺服器 ```do dev service```
+    - 元件開發伺服器 ```do dev storybook```
+    - 服務開發伺服器 ```do dev model```
     - 偽資料伺服器 ```do dev dummy```
 + 發佈模式 ```do pub```
 

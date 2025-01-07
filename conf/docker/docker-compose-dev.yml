@@ -1,0 +1,87 @@
+# Docker-Compose document
+# Ref : https://docs.docker.com/compose/compose-file/
+
+name: ${PROJECT_NAME}
+
+networks:
+  srv-network:
+    driver: bridge
+    name: ${INFRA_DOCKER_NETWORK}
+    external: true
+
+services:
+  web:
+    image: ${WEB_IMAGE_NAME}
+    container_name: ${WEB_CONTAINER_NAME}
+    hostname: web
+    stdin_open: true
+    tty: true
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    volumes:
+      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/cache/develop/web/dist:/app/dist
+      - ${PROJECT_DIR}/cache/develop/web/node_modules:/app/node_modules
+    environment:
+      - PORT=${WEB_PORT}
+    command: [ "${WEB_COMMAND}" ]
+    working_dir: /app
+    networks:
+      - srv-network
+
+  sb:
+    image: ${SB_IMAGE_NAME}
+    container_name: ${SB_CONTAINER_NAME}
+    hostname: sb
+    stdin_open: true
+    tty: true
+    ports:
+      - ${SB_PORT}:${SB_PORT}
+    volumes:
+      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/cache/develop/sb/dist:/app/dist
+      - ${PROJECT_DIR}/cache/develop/sb/node_modules:/app/node_modules
+    environment:
+      - PORT=${SB_PORT}
+    command: [ "${SB_COMMAND}" ]
+    working_dir: /app
+    networks:
+      - srv-network
+
+  svc:
+    image: ${SVC_IMAGE_NAME}
+    container_name: ${SVC_CONTAINER_NAME}
+    hostname: svc
+    stdin_open: true
+    tty: true
+    ports:
+      - ${SVC_PORT}:${SVC_PORT}
+    volumes:
+      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/cache/develop/svc/dist:/app/dist
+      - ${PROJECT_DIR}/cache/develop/svc/node_modules:/app/node_modules
+    environment:
+      - PORT=${SVC_PORT}
+    command: [ "${SVC_COMMAND}" ]
+    working_dir: /app
+    networks:
+      - srv-network
+
+  dummy:
+    image: ${DUMMY_IMAGE_NAME}
+    container_name: ${DUMMY_CONTAINER_NAME}
+    hostname: dummy
+    stdin_open: true
+    tty: true
+    ports:
+      - ${DUMMY_PORT}:${DUMMY_PORT}
+    volumes:
+      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/cache/develop/dummy/dist:/app/dist
+      - ${PROJECT_DIR}/cache/develop/dummy/node_modules:/app/node_modules
+    environment:
+      - PORT=${DUMMY_PORT}
+    command: [ "${DUMMY_COMMAND}" ]
+    working_dir: /app
+    networks:
+      - srv-network
