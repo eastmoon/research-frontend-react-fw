@@ -40,7 +40,7 @@ React 前端框架基於 MVP 架構概念設計設計，並著重於視圖 ( Vie
         + 視圖元件的狀態，亦即 MVP 架構中的 Presenter
         + 基於 React 的狀態設計進行相應設計調整
 
-+ 視圖模塊
++ 視圖模塊 ( View )
     - 頁面 ( Page )
         + 基於 React 規範，複合數個圖層，以 HTML、CSS、JavaScript 組成的頁面藍圖
         + 頁面負責管理相關的圖層註冊
