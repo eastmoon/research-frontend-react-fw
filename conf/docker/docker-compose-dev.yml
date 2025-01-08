@@ -72,7 +72,6 @@ services:
       - ${DUMMY_PORT}:${DUMMY_PORT}
     volumes:
       - ${PROJECT_DIR}/app/dummy:/app
-      - ${PROJECT_DIR}/cache/develop/dummy/dist:/app/dist
     environment:
       - PORT=${DUMMY_PORT}
     command: [ "${DUMMY_COMMAND}" ]

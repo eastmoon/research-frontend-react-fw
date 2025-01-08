@@ -7,7 +7,7 @@ if [ -z ${1} ]; then
 elif [ "${1}" = "init" ]; then
     npm install
 elif [ "${1}" = "dummy" ]; then
-    npm run dev -- --port ${PORT}
+    npm run start -- --port ${PORT} --host 0.0.0.0
 else
     exec "$@"
 fi
