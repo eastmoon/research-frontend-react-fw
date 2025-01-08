@@ -19,6 +19,10 @@ goto end
         -t react.sdk:%PROJECT_NAME% ^
         %CLI_DIRECTORY%/conf/docker/react
 
+    docker build --rm ^
+        -t dummy.sdk:%PROJECT_NAME% ^
+        %CLI_DIRECTORY%/conf/docker/dummy
+
     echo ^> Build virtual network
     set network_exist=1
     for /f "tokens=1" %%p in ('docker network ls --filter "name=%INFRA_DOCKER_NETWORK%" --format "{{.ID}}"') do (
@@ -78,7 +82,7 @@ goto end
             echo INFRA_DOCKER_NETWORK=%INFRA_DOCKER_NETWORK% >> !DC_ENV!
 
             @rem website dev serverconfig
-            echo WEB_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
+            echo WEB_IMAGE_NAME=%TARGET_PROJECT_DEV_SERVER_IMAGE%.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo WEB_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_DEV_SERVER_HOSTNAME% >> !DC_ENV!
             echo WEB_PORT=%TARGET_PROJECT_DEV_SERVER_PORT% >> !DC_ENV!
             if "%TARGET_PROJECT_COMMAND%" == "bash" (
@@ -88,7 +92,7 @@ goto end
             )
 
             @rem storybook server config
-            echo SB_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
+            echo SB_IMAGE_NAME=%TARGET_PROJECT_STORYBOOK_SERVER_IMAGE%.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo SB_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
             echo SB_PORT=%TARGET_PROJECT_STORYBOOK_SERVER_PORT% >> !DC_ENV!
             if "%TARGET_PROJECT_COMMAND%" == "bash" (
@@ -98,7 +102,7 @@ goto end
             )
 
             @rem mocha server config
-            echo MOCHA_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
+            echo MOCHA_IMAGE_NAME=%TARGET_PROJECT_MOCHA_SERVER_IMAGE%.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo MOCHA_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% >> !DC_ENV!
             echo MOCHA_PORT=%TARGET_PROJECT_MOCHA_SERVER_PORT% >> !DC_ENV!
             if "%TARGET_PROJECT_COMMAND%" == "bash" (
@@ -108,7 +112,7 @@ goto end
             )
 
             @rem dummy server config
-            echo DUMMY_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
+            echo DUMMY_IMAGE_NAME=%TARGET_PROJECT_DUMMY_SERVER_IMAGE%.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo DUMMY_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_DUMMY_SERVER_HOSTNAME% >> !DC_ENV!
             echo DUMMY_PORT=%TARGET_PROJECT_DUMMY_SERVER_PORT% >> !DC_ENV!
             if "%TARGET_PROJECT_COMMAND%" == "bash" (
