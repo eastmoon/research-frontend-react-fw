@@ -87,11 +87,11 @@ goto end
             echo SB_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo SB_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
             echo SB_PORT=%TARGET_PROJECT_STORYBOOK_SERVER_PORT% >> !DC_ENV!
-            echo SB_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            echo SB_COMMAND=sb >> !DC_ENV!
 
             @rem service dev server config
             echo SVC_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
-            echo SVC_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_SVC_SERVER_HOSTNAME% >> !DC_ENV!
+            echo SVC_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_MODEL_SERVER_HOSTNAME% >> !DC_ENV!
             echo SVC_PORT=%TARGET_PROJECT_MODEL_SERVER_PORT% >> !DC_ENV!
             echo SVC_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
 
@@ -103,9 +103,11 @@ goto end
 
             @rem startup with docker-compose
             if "%VAR_SRV_HOSTNAME%" == "all" (
+                docker compose --file !DC_CONF! --env-file !DC_ENV! run -ti --rm web init
                 docker compose --file !DC_CONF! --env-file !DC_ENV! up -d
             ) else (
                 call :do-dev-remove %DOCKER_CONTAINER_NAME%-%VAR_SRV_HOSTNAME%
+                docker compose --file !DC_CONF! --env-file !DC_ENV! run -ti --rm %VAR_SRV_HOSTNAME% init
                 if not defined VAR_SRV_STATE (
                     docker compose --file !DC_CONF! --env-file !DC_ENV! run -ti --rm --service-ports %VAR_SRV_HOSTNAME%
                 ) else (

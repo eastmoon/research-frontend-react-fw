@@ -11,7 +11,6 @@ services:
     volumes:
       - ${PROJECT_DIR}/app:/app
       - ${PROJECT_DIR}/cache/publish:/app/dist
-      - ${PROJECT_DIR}/cache/develop/node_modules:/app/node_modules
     command: [ "${SRV_COMMAND}" ]
     working_dir: /app
     network_mode: host
