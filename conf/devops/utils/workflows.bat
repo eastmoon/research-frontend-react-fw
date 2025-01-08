@@ -81,25 +81,41 @@ goto end
             echo WEB_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo WEB_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_DEV_SERVER_HOSTNAME% >> !DC_ENV!
             echo WEB_PORT=%TARGET_PROJECT_DEV_SERVER_PORT% >> !DC_ENV!
-            echo WEB_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            if "%TARGET_PROJECT_COMMAND%" == "bash" (
+                echo WEB_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            ) else (
+                echo WEB_COMMAND=%TARGET_PROJECT_DEV_SERVER_HOSTNAME% >> !DC_ENV!
+            )
 
             @rem storybook server config
             echo SB_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo SB_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
             echo SB_PORT=%TARGET_PROJECT_STORYBOOK_SERVER_PORT% >> !DC_ENV!
-            echo SB_COMMAND=%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
+            if "%TARGET_PROJECT_COMMAND%" == "bash" (
+                echo SB_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            ) else (
+                echo SB_COMMAND=%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
+            )
 
             @rem mocha server config
             echo MOCHA_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo MOCHA_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% >> !DC_ENV!
             echo MOCHA_PORT=%TARGET_PROJECT_MOCHA_SERVER_PORT% >> !DC_ENV!
-            echo MOCHA_COMMAND=%TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% >> !DC_ENV!
+            if "%TARGET_PROJECT_COMMAND%" == "bash" (
+                echo MOCHA_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            ) else (
+                echo MOCHA_COMMAND=%TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% >> !DC_ENV!
+            )
 
             @rem dummy server config
             echo DUMMY_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo DUMMY_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_DUMMY_SERVER_HOSTNAME% >> !DC_ENV!
             echo DUMMY_PORT=%TARGET_PROJECT_DUMMY_SERVER_PORT% >> !DC_ENV!
-            echo DUMMY_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            if "%TARGET_PROJECT_COMMAND%" == "bash" (
+                echo DUMMY_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            ) else (
+                echo DUMMY_COMMAND=%TARGET_PROJECT_DUMMY_SERVER_HOSTNAME% >> !DC_ENV!
+            )
 
             @rem startup with docker-compose
             if "%VAR_SRV_HOSTNAME%" == "all" (

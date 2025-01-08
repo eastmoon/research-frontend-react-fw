@@ -6,7 +6,7 @@ if [ -z ${1} ]; then
     tail -f /dev/null
 elif [ "${1}" = "init" ]; then
     npm install
-elif [ "${1}" = "dev" ]; then
+elif [ "${1}" = "web" ]; then
     npm run dev -- --port ${PORT}
 elif [ "${1}" = "sb" ]; then
     npm run storybook -- --port ${PORT}
