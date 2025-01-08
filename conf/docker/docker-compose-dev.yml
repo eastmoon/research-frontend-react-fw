@@ -19,7 +19,7 @@ services:
     ports:
       - ${WEB_PORT}:${WEB_PORT}
     volumes:
-      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/app/web:/app
       - ${PROJECT_DIR}/cache/develop/web/dist:/app/dist
     environment:
       - PORT=${WEB_PORT}
@@ -37,7 +37,7 @@ services:
     ports:
       - ${SB_PORT}:${SB_PORT}
     volumes:
-      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/app/web:/app
     environment:
       - PORT=${SB_PORT}
     command: [ "${SB_COMMAND}" ]
@@ -54,7 +54,7 @@ services:
     ports:
       - ${MOCHA_PORT}:${MOCHA_PORT}
     volumes:
-      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/app/web:/app
     environment:
       - PORT=${MOCHA_PORT}
     command: [ "${MOCHA_COMMAND}" ]
@@ -71,7 +71,7 @@ services:
     ports:
       - ${DUMMY_PORT}:${DUMMY_PORT}
     volumes:
-      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/app/dummy:/app
       - ${PROJECT_DIR}/cache/develop/dummy/dist:/app/dist
     environment:
       - PORT=${DUMMY_PORT}
