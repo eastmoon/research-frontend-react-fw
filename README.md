@@ -6,8 +6,7 @@ React 前端框架基於 MVP 架構概念設計設計，並著重於視圖 ( Vie
 
 開發運維框架是提供 DevOps 在基礎架構即程式 ( Infrastructure as Code ) 設計概念下，將專案的開發、發佈歸納入專案管理的腳本下，確保轉移至任何開發環境都能基於相應的命令介面執行相應內容。
 
-+ 開發模式
-    - 開發環境 ```do dev```
++ 開發模式 ```do dev```
     - 開發伺服器 ```do dev server```
     - 元件開發伺服器 ```do dev storybook```
     - 服務開發伺服器 ```do dev model```
