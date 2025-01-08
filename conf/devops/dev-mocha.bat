@@ -12,7 +12,7 @@ goto end
 :action
     @rem execute script
     call %CLI_SHELL_DIRECTORY%\utils\tools.bat workflow do-dev ^
-        %TARGET_PROJECT_MODEL_SERVER_HOSTNAME% ^
+        %TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% ^
         %TARGET_PROJECT_DEV_SERVER_IN_BACKGROUND%
     goto end
 
@@ -25,12 +25,12 @@ goto end
     goto end
 
 :short
-    echo Startup model develop.
+    echo Startup mocha to do model develop.
     goto end
 
 :help
     echo This is a Command Line Interface with project %PROJECT_NAME%
-    echo Startup model develop.
+    echo Startup mocha to do model develop.
     echo.
     echo Options:
     echo      --help, -h        Show more command information.

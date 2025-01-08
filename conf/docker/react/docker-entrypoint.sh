@@ -10,6 +10,8 @@ elif [ "${1}" = "dev" ]; then
     npm run dev -- --port ${PORT}
 elif [ "${1}" = "sb" ]; then
     npm run storybook -- --port ${PORT}
+elif [ "${1}" = "mocha" ]; then
+    npm run mocha
 elif [ "${1}" = "build" ]; then
     npm install
     npm run build

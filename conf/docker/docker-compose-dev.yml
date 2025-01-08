@@ -45,19 +45,19 @@ services:
     networks:
       - srv-network
 
-  svc:
-    image: ${SVC_IMAGE_NAME}
-    container_name: ${SVC_CONTAINER_NAME}
-    hostname: svc
+  mocha:
+    image: ${MOCHA_IMAGE_NAME}
+    container_name: ${MOCHA_CONTAINER_NAME}
+    hostname: mocha
     stdin_open: true
     tty: true
     ports:
-      - ${SVC_PORT}:${SVC_PORT}
+      - ${MOCHA_PORT}:${MOCHA_PORT}
     volumes:
       - ${PROJECT_DIR}/app:/app
     environment:
-      - PORT=${SVC_PORT}
-    command: [ "${SVC_COMMAND}" ]
+      - PORT=${MOCHA_PORT}
+    command: [ "${MOCHA_COMMAND}" ]
     working_dir: /app
     networks:
       - srv-network

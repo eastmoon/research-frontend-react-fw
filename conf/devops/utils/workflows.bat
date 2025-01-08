@@ -87,13 +87,13 @@ goto end
             echo SB_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
             echo SB_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
             echo SB_PORT=%TARGET_PROJECT_STORYBOOK_SERVER_PORT% >> !DC_ENV!
-            echo SB_COMMAND=sb >> !DC_ENV!
+            echo SB_COMMAND=%TARGET_PROJECT_STORYBOOK_SERVER_HOSTNAME% >> !DC_ENV!
 
-            @rem service dev server config
-            echo SVC_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
-            echo SVC_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_MODEL_SERVER_HOSTNAME% >> !DC_ENV!
-            echo SVC_PORT=%TARGET_PROJECT_MODEL_SERVER_PORT% >> !DC_ENV!
-            echo SVC_COMMAND=%TARGET_PROJECT_COMMAND% >> !DC_ENV!
+            @rem mocha server config
+            echo MOCHA_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
+            echo MOCHA_CONTAINER_NAME=%DOCKER_CONTAINER_NAME%-%TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% >> !DC_ENV!
+            echo MOCHA_PORT=%TARGET_PROJECT_MOCHA_SERVER_PORT% >> !DC_ENV!
+            echo MOCHA_COMMAND=%TARGET_PROJECT_MOCHA_SERVER_HOSTNAME% >> !DC_ENV!
 
             @rem dummy server config
             echo DUMMY_IMAGE_NAME=react.sdk:%PROJECT_NAME% >> !DC_ENV!
