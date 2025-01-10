@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     /* Paths */
+    "baseUrl": ".",
     "paths": {
-      "@app/*": ["./src/*"]
+      /* for react source code path resolve */
+      "@/*" : ["src/*"]
     }
   },
   "files": [],
