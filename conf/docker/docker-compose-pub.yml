@@ -9,7 +9,7 @@ services:
     container_name: ${SRV_CONTAINER_NAME}
     hostname: ${SRV_HOSTNAME}
     volumes:
-      - ${PROJECT_DIR}/app:/app
+      - ${PROJECT_DIR}/app/web:/app
       - ${PROJECT_DIR}/cache/publish:/app/dist
     command: [ "${SRV_COMMAND}" ]
     working_dir: /app
