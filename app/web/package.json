@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev",
-    "build-storybook": "storybook build",
     "mocha": "CHOKIDAR_USEPOLLING=true mocha --config=.mocha/mocharc.json"
   },
   "dependencies": {
