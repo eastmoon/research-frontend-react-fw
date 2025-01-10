@@ -3,7 +3,6 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      /* for react source code path resolve */
       "@/*" : ["src/*"]
     }
   },
