@@ -23,7 +23,7 @@ let obj = new demo();
 console.log(obj);
 
 // Test case
-describe('DEV Framework.Pattern.Singleton test', () => {
+describe('Framework.Pattern.Singleton test', () => {
     it('Singleton interface', () => {
         let inst : Singleton = Singleton.instance;
         assert.ok(inst instanceof Singleton);
