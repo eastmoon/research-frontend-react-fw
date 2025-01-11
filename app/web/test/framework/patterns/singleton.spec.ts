@@ -13,15 +13,6 @@ class ChildrenSingleton extends Singleton {
     }
 }
 
-class demo {
-    val : number
-    private constructor() {
-        this.val =123
-    }
-}
-let obj = new demo();
-console.log(obj);
-
 // Test case
 describe('Framework.Pattern.Singleton test', () => {
     it('Singleton interface', () => {
