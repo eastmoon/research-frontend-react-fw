@@ -14,7 +14,7 @@ class ChildrenSingleton extends Singleton {
 }
 
 // Test case
-describe('Framework.Pattern.Singleton test', () => {
+describe('Framework.Pattern.Singleton Tests', () => {
     it('Singleton interface', () => {
         let inst : Singleton = Singleton.instance;
         assert.ok(inst instanceof Singleton);
