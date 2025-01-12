@@ -2,7 +2,7 @@
 import { assert } from "chai";
 
 // Application framework Library
-import { IContainer, Container } from "@/framework/pattern/container";
+import { IContainer, Container } from "@/framework/pattern/facade/container";
 
 // Declared class or variable
 class Demo {
@@ -13,7 +13,7 @@ class Demo {
 }
 
 // Test case
-describe('DEV Framework.Pattern.Container Tests', () => {
+describe('DEV Framework.Pattern.Facade.Container Tests', () => {
     it('Container interface', () => {
         let c : IContainer = new Container();
         assert.property(c, "register");
