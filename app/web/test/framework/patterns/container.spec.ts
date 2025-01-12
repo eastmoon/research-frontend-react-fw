@@ -13,7 +13,7 @@ class Demo {
 }
 
 // Test case
-describe('DEV Framework.Pattern.Facade.Container Tests', () => {
+describe('Framework.Pattern.Facade.Container Tests', () => {
     it('Container interface', () => {
         let c : IContainer = new Container();
         assert.property(c, "register");
