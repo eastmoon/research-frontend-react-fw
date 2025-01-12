@@ -18,7 +18,7 @@ export interface IContainer<T> {
 // Declare class
 export class Container<T> implements IContainer<T> {
     // Member variable
-    private contents : { [key : string] : T | null } = {};
+    protected contents : { [key : string] : T | null } = {};
 
     // Method
     // register content
