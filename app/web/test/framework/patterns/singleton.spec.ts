@@ -15,7 +15,7 @@ class ChildrenSingleton extends Singleton {
 
 // Test case
 describe('Framework.Pattern.Singleton Tests', () => {
-    it('Singleton interface', () => {
+    it('Singleton instance retrieve', () => {
         let inst : Singleton = Singleton.instance;
         assert.ok(inst instanceof Singleton);
         assert.ok(typeof inst !== "undefined" && typeof inst === "object");
