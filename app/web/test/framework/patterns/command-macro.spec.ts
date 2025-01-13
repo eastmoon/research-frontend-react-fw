@@ -44,7 +44,7 @@ class c4 extends Simple {
 
 
 // Test case
-describe('DEV Framework.Pattern.Command Tests', () => {
+describe('Framework.Pattern.Command Tests', () => {
     it('Macro command interface', () => {
         let c : ICommand = new Macro();
         assert.property(c, "name");
