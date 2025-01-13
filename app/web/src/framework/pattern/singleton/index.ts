@@ -22,7 +22,7 @@ export default class Singleton {
     }
 
     // Declare static accessor
-    static get instance() {
+    static get instance() : any {
         // Class.instance, use static attribute to retrieve instance
         if (typeof instances[this.name] === "undefined" || instances[this.name] === null) {
             instances[this.name] = new this();
