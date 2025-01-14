@@ -29,9 +29,4 @@ export default class Singleton {
         }
         return instances[this.name];
     }
-
-    // Declare class method
-    initial() {
-        return this;
-    }
 }
