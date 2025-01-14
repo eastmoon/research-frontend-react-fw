@@ -5,7 +5,7 @@
 
 Command 樣式 ( 命令樣式 ) 的特徵，是以物件來代表實際業務邏輯，並且將邏輯行動 ( action ) 或演算法 ( algorithm ) 封裝於命令物件中。
 
-![](./command-concept.png)
+![](./concept.png)
 > from [Command](https://refactoring.guru/design-patterns/command)
 
 ## 引用 Command 模組

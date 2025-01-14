@@ -7,7 +7,7 @@
 
 Singleton 樣式 ( 單例、唯一樣式 ) 的特徵，是在應用這個模式時，使用對象的類別必須保證只有一個實例存在。
 
-![](./singleton-concept.png)
+![](./concept.png)
 > from [Singleton](https://refactoring.guru/design-patterns/singleton)
 
 ## 類別使用方式
