@@ -18,14 +18,14 @@ export interface IContainer<T> {
 // Declare class
 export class Container<T> implements IContainer<T> {
     // Member variable
-    protected contents : { [key : string] : T | null } = {};
+    protected contents : { [key : string] : T} = {};
 
     // Method
     // register content
     // @parame [name, object] :
     // @return : true, register success. false, register fail or parameter input wrong.
     register($name : string, $content : T ) : boolean {
-        if (!this.has($name) && $content !== null) {
+        if (!this.has($name) && $content !== null && $content !== undefined) {
             this.contents[$name] = $content;
             return true;
         }
@@ -37,7 +37,6 @@ export class Container<T> implements IContainer<T> {
     // @return : true, remove success. false, remove fail or parameter input wrong.
     remove($name : string) : boolean {
       if (this.has($name)) {
-          this.contents[$name] = null;
           delete this.contents[$name]
           return true;
       }
