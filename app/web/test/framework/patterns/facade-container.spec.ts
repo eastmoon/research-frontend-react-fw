@@ -68,5 +68,15 @@ describe('Framework.Pattern.Facade.Container Tests', () => {
         assert.equal(c.size, 1);
         assert.ok(c.remove(d2.name));
         assert.equal(c.size, 0);
+    });;
+    it('Container keys', () => {
+        let c : IContainer<Demo> = new Container<Demo>();
+        let d1 = new Demo("1");
+        let d2 = new Demo("2");
+        assert.ok(c.register(d1.name, d1));
+        assert.ok(c.register(d2.name, d2));
+        assert.include(c.keys, "1");
+        assert.include(c.keys, "2");
+        assert.notInclude(c.keys, "3");
     });
 });

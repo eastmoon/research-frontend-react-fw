@@ -13,6 +13,7 @@ export interface IContainer<T> {
     retrieve($name: string) : T | null;
     has($name : string) : boolean;
     get size() : number;
+    get keys() : string[];
 }
 
 // Declare class
@@ -67,5 +68,12 @@ export class Container<T> implements IContainer<T> {
     // @return : content count.
     get size() : number {
         return Object.keys(this.contents).length;
+    }
+
+    // keys
+    // An array with all key name which register in container.
+    // @return : all content key name.
+    get keys() : string[] {
+        return Object.keys(this.contents);
     }
 }
