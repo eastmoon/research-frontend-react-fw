@@ -7,7 +7,7 @@
 // Import libraries
 import { Container } from "@/framework/pattern/facade/container";
 // Declare type
-export type TSubscriber = ($args : any) => void
+export type TSubscriber = ($args ?: any) => void
 // Declare interface
 export interface ISubscriber {
     subject : string;
@@ -16,7 +16,7 @@ export interface ISubscriber {
 export interface ISubject {
     attach($handler : TSubscriber ) : void;
     detach($handler : TSubscriber ) : void;
-    notify($note : any) : void;
+    notify($note ?: any) : void;
     get size() : number;
 }
 export interface IPublisher {
@@ -24,7 +24,7 @@ export interface IPublisher {
     detach($subject : string, $handler : TSubscriber ) : void;
     subscribe($subscriber : ISubscriber) : void;
     unsubscribe($subscriber : ISubscriber) : void;
-    notify($subject : string, $note : any) : void;
+    notify($subject : string, $note ?: any) : void;
 }
 // Declare class
 export class Subject implements ISubject {
@@ -41,7 +41,7 @@ export class Subject implements ISubject {
             this.subscribes.splice(index, 1);
         }
     }
-    notify($note: any) : void {
+    notify($note ?: any) : void {
         this.subscribes.forEach(($fun : TSubscriber) => $fun($note));
     }
 
@@ -77,7 +77,7 @@ export class Publisher extends Container<ISubject> implements IPublisher {
     unsubscribe($subscriber : ISubscriber) : void {
         this.detach($subscriber.subject, $subscriber.handler);
     }
-    notify($subject : string, $note : any) : void {
+    notify($subject : string, $note ?: any) : void {
         let s : ISubject | null = this.retrieve($subject);
         if ( s !== null ) {
             s.notify($note);

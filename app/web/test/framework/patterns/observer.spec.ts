@@ -13,6 +13,12 @@ let f1 = (x : any) => {
 let f2 = (x : any) => {
     count += (Number(x) + 2);
 }
+let f3 = () => {
+    count += 1;
+}
+let f4 = () => {
+    count += 2;
+}
 let sub : ISubscriber = {
     subject: "demo",
     handler: (x) => { count += (Number(x) + 3) }
@@ -64,6 +70,18 @@ describe('Framework.Pattern.Observer Tests', () => {
         o.detach(f1);
         o.notify(1);
         assert.equal(count, 0);
+    });
+    it('Subject notify can empty arguments', () => {
+        let o : ISubject = new Subject();
+        count = 0;
+        o.attach(f3);
+        o.attach(f4);
+        o.notify();
+        assert.equal(count, 3);
+        count = 0;
+        o.detach(f3);
+        o.notify();
+        assert.equal(count, 2);
     });
     it('Publisher interface', () => {
         let o : IPublish = new Publisher();
@@ -151,6 +169,18 @@ describe('Framework.Pattern.Observer Tests', () => {
         count = 0;
         o.unsubscribe(sub);
         o.notify("demo", 1);
+        assert.equal(count, 2);
+    });
+    it('Publisher notify can empty arguments', () => {
+        let o : IPublish = new Publisher();
+        count = 0;
+        o.attach("demo", f3);
+        o.attach("demo", f4);
+        o.notify("demo");
+        assert.equal(count, 3);
+        count = 0;
+        o.detach("demo", f3);
+        o.notify("demo");
         assert.equal(count, 2);
     });
 });
