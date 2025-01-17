@@ -5,7 +5,7 @@
     author: jacky.chen
 */
 // Import libraries
-import { Container } from "@/framework/pattern/facade/container";
+import { IContainer, Container } from "@/framework/pattern/facade/container";
 // Declare type
 export type TSubscriber = ($args ?: any) => void
 // Declare interface
@@ -19,7 +19,7 @@ export interface ISubject {
     notify($note ?: any) : void;
     get size() : number;
 }
-export interface IPublisher {
+export interface IPublisher extends IContainer<ISubject> {
     attach($subject : string, $handler : TSubscriber ) : void;
     detach($subject : string, $handler : TSubscriber ) : void;
     subscribe($subscriber : ISubscriber) : void;
