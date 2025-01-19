@@ -28,7 +28,7 @@ class SubMediator extends Mediator {
 }
 
 // Test case
-describe('DEV Framework.Pattern.Mediator Tests', () => {
+describe('Framework.Pattern.Mediator Tests', () => {
     it('Mediator interface', () => {
         let o : IMediator = new Mediator();
         assert.property(o, "attachEvent");
