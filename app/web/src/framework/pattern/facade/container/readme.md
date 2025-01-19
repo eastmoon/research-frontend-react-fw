@@ -6,7 +6,7 @@ Container 是基於 Facade 樣式 ( 外觀樣式 ) 設計的資料結構物件�
 
 Container 其模組包括一個 Interface 和一個 Class。
 
-```
+```js
 import { IContainer, Container } from "@/framework/pattern/container";
 ```
 
@@ -17,7 +17,7 @@ import { IContainer, Container } from "@/framework/pattern/container";
 
 由於 Container 宣告需提供泛型，亦即單一 Container 僅能管理一種類別或基於介面實作的類別。
 
-```
+```js
 class Demo {
     name : string = "";
     constructor($name : string) {
@@ -35,7 +35,7 @@ let d2 : Demo = new Demo("2");
 
 基於指定的類別並以泛型方式宣告物件。
 
-```
+```js
 let c : IContainer<Demo> = new Container<Demo>();
 ```
 
@@ -49,7 +49,7 @@ let c : IContainer<Demo> = new Container<Demo>();
 
 ##### 註冊範例
 
-```
+```js
 c.register(d1.name, d1);
 c.register(d2.name, d2);
 console.log(c.size); // print '2'
@@ -57,7 +57,7 @@ console.log(c.size); // print '2'
 
 ##### 移除範例
 
-```
+```js
 c.register(d1.name, d1);
 c.remove(d2.name);
 console.log(c.size); // print '1'
@@ -67,7 +67,7 @@ console.log(c.size); // print '0'
 
 ##### 取回範例
 
-```
+```js
 c.register(d1.name, d1);
 let d : Demo = c.retrieve(d1.name);
 console.log( d === d1 ); // print 'true'
@@ -77,7 +77,7 @@ console.log( d === d1 ); // print 'true'
 
 ##### 檢測範例
 
-```
+```js
 c.register(d1.name, d1);
 console.log( c.has(d1.name) ); // print 'true'
 console.log( c.has(d2.name) ); // print 'false'

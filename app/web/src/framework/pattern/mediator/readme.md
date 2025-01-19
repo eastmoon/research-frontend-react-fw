@@ -35,7 +35,7 @@ Mediator 樣式 ( 中介者樣式 ) 的特徵，是建立一個中介物件，�
 
 Proxy 其模組包括一個 Interface 和一個 Class。
 
-```
+```js
 import { IMediator, Mediator } from "@/framework/pattern/mediator";
 ```
 

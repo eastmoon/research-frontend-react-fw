@@ -29,7 +29,7 @@ Proxy 樣式 ( 代理者樣式 ) 的特徵，是建立一個中介物件，管�
 
 Proxy 其模組包括一個 Interface 和兩個 Class。
 
-```
+```js
 import { IProxy, Service, Proxy } from "@/framework/pattern/proxy";
 ```
 

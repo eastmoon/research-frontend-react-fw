@@ -21,7 +21,7 @@ Observer 樣式 ( 觀察者樣式 ) 的特徵，是以訂閱機制對一個觀�
 
 Observer 其模組包括一個 Type 三個 Interface 和兩個 Class。
 
-```
+```js
 import { TSubscriber, ISubscriber, ISubject, Subject, IPublish, Publisher } from "@/framework/pattern/observer";
 ```
 
@@ -39,7 +39,7 @@ import { TSubscriber, ISubscriber, ISubject, Subject, IPublish, Publisher } from
 
 ##### 連結 ( attach ) 處理函數
 
-```
+```js
 let s = new Subject();
 s.attach((x : any) => { console.log(x) });
 ```
@@ -48,7 +48,7 @@ s.attach((x : any) => { console.log(x) });
 
 ##### 分離 ( detach ) 處理函數
 
-```
+```js
 let f = (x : any) => { console.log(x) };
 let s = new Subject();
 s.attach(f);
@@ -59,7 +59,7 @@ console.log(s.size); // print 0
 
 ##### 通告 ( notify ) 處理函數
 
-```
+```js
 let f = (x : any) => { console.log("f", x) };
 let s = new Subject();
 s.attach(f);
@@ -72,7 +72,7 @@ s.notify(1); // print f1
 
 ##### 連結 ( attach )、分離 ( detach ) 處理函數
 
-```
+```js
 let f = (x : any) => { console.log(x) };
 let p = new Publisher();
 p.attach("demo", f);
@@ -87,7 +87,7 @@ p.detach("demo", f);
 
 + 使用匿名物件
 
-```
+```js
 let p = new Publisher();
 p.subscribe({
     subject: "demo",
@@ -97,7 +97,7 @@ p.subscribe({
 
 與前述的匿名函數連結相同，使用匿名物件無法使用反訂閱 ( unsubscribe ) 移除，但若匿名物件的函數是指向另外的具名函數，仍可以透過 ```detach``` 移除，就如下範例。
 
-```
+```js
 let f = (x : any) => { console.log(x) };
 let p = new Publisher();
 p.subscribe({
@@ -109,7 +109,7 @@ p.detach("demo", f);
 
 + 具名物件
 
-```
+```js
 let sub : ISubscriber = {
     subject: "demo",
     handler: (x) => { console.log(x) }
@@ -123,7 +123,7 @@ p.unsubscribe(sub);
 
 + 類別實作 ```ISubscriber```
 
-```
+```js
 class subc implements ISubscriber {
     subject: string = "demo";
     handler ( x : any ) {
@@ -140,7 +140,7 @@ p.unsubscribe(subo);
 
 ##### 通告 ( notify ) 處理函數
 
-```
+```js
 let f = (x : any) => { console.log("f", x) };
 let s : ISubscriber = {
     subject: "demo",

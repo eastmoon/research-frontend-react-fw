@@ -12,7 +12,7 @@ Command 樣式 ( 命令樣式 ) 的特徵，是以物件來代表實際業務邏
 
 Command 其模組包括一個 Interface 和兩個 Class。
 
-```
+```js
 import { ICommand, Simple, Macro } from "@/framework/pattern/command";
 ```
 
@@ -27,7 +27,7 @@ import { ICommand, Simple, Macro } from "@/framework/pattern/command";
 
 當命令生成為物件時，會依據提供給建構函數的字串為名稱，若沒有提供則用物件名稱為名。
 
-```
+```js
 let c1 : ICommand = new Simple();
 console.log(c1.name); // print 'Simple'
 let c2 : ICommand = new Simple("Demo")
@@ -40,7 +40,7 @@ console.log(c2.name); // print 'Demo'
 
 ##### 提供參數物件
 
-```
+```js
 let c : ICommand = new Simple();
 let a : Args = { val : 1, str : "demo" };
 let r : any = c.execute(a);
@@ -50,7 +50,7 @@ let r : any = c.execute(a);
 
 ##### 不提供參數物件
 
-```
+```js
 let c : ICommand = new Simple();
 c.execute();
 ```
@@ -63,7 +63,7 @@ c.execute();
 
 ##### 提供參數物件
 
-```
+```js
 // 宣告自定簡單命令
 class c1 extends Simple {
     execute($args: any) : any {
@@ -92,7 +92,7 @@ console.log(a); // print { val : 123, str : "c2" }
 
 就如前面所述，巨集執行時會依據註冊的命令修改傳入的參數物件；但需要注意，倘若巨集執行時不提供參數物件 ```m.execute()``` 則會因為註冊命令沒有防護參數物件為 undefined 的狀態導致異常；因此，若命令有修改參數物件的邏輯，應該如下增加防護措施避免巨集錯誤執行。
 
-```
+```js
 class c1 extends Simple {
     execute($args: any) : any {
         // 增加檢查程式確保傳入的 args 不為 undefined 或 null
@@ -106,7 +106,7 @@ class c1 extends Simple {
 
 ##### 不提供參數物件
 
-```
+```js
 // 宣告自定簡單命令
 class c1 extends Simple {
     execute() {
@@ -131,7 +131,7 @@ m.execute();
 
 就如前面所述，這樣的設計目的表示要執行的行動獨立且互相無關，但若執行仍有順序議題，則應調整註冊的編號，來改變執行的順序。
 
-```
+```js
 m.register("2", new c1());
 m.register("1", new c2());
 ```

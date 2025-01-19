@@ -16,13 +16,13 @@ Singleton 樣式 ( 單例、唯一樣式 ) 的特徵，是在應用這個模式�
 
 + 使用 new 操作元
 
-```
+```js
 let obj : Singleton = new Singleton();
 ```
 
 + 使用 instance 靜態屬性存取器
 
-```
+```js
 let inst : Singleton = Singleton.instance
 ```
 
@@ -30,13 +30,13 @@ let inst : Singleton = Singleton.instance
 
 Singleton 可以被繼承，而繼承的新類別具有獨立的實體。
 
-```
+```js
 class ChildrenSingleton extends Singleton {}
 ```
 
 若繼承類別有自身的屬性，可在自身的類別宣告與建構函數中設定相關數值。
 
-```
+```js
 class ChildrenSingleton extends Singleton {
     val : number;
     constructor() {
