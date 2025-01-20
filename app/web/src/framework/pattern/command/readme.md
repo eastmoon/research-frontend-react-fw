@@ -43,7 +43,7 @@ console.log(c2.name); // print 'Demo'
 ```js
 let c : ICommand = new Simple();
 let a : Args = { val : 1, str : "demo" };
-let r : any = c.execute(a);
+let r : any = c.exec(a);
 ```
 
 命令原則是傳入什麼回傳什麼，這樣的設計目的是透過連串的命令來改變傳入物件的數值，或基於數值改變執行方式；此外，上述範例中變數 ```a``` 與變數 ```r``` 指向相同物件。
@@ -52,7 +52,7 @@ let r : any = c.execute(a);
 
 ```js
 let c : ICommand = new Simple();
-c.execute();
+c.exec();
 ```
 
 命令原則是傳入什麼回傳什麼，上述範例傳入與回傳皆為 undefined，這樣的設計目的表示要執行的行動獨立且互相無關，或行動會影響到其他數據來源。
@@ -66,14 +66,14 @@ c.execute();
 ```js
 // 宣告自定簡單命令
 class c1 extends Simple {
-    execute($args: any) : any {
+    exec($args: any) : any {
         $args.val = 123;
         return $args;
     }
 }
 
 class c2 extends Simple {
-    execute($args: any) : any {
+    exec($args: any) : any {
         $args.str = "c2";
         return $args;
     }
@@ -86,7 +86,7 @@ m.register("2", new c2());
 
 // 宣告參數物件並執行
 let a : Args = { val : 1, str : "demo" };
-m.execute(a);
+m.exec(a);
 console.log(a); // print { val : 123, str : "c2" }
 ```
 
@@ -94,7 +94,7 @@ console.log(a); // print { val : 123, str : "c2" }
 
 ```js
 class c1 extends Simple {
-    execute($args: any) : any {
+    exec($args: any) : any {
         // 增加檢查程式確保傳入的 args 不為 undefined 或 null
         if ($args !== undefined && $args !== null) {
             $args.val = 123;
@@ -109,13 +109,13 @@ class c1 extends Simple {
 ```js
 // 宣告自定簡單命令
 class c1 extends Simple {
-    execute() {
+    exec() {
         console.log(1234);
     }
 }
 
 class c2 extends Simple {
-    execute() {
+    exec() {
         console.log(5678);
     }
 }
@@ -126,7 +126,7 @@ m.register("1", new c1());
 m.register("2", new c2());
 
 // 巨集執行
-m.execute();
+m.exec();
 ```
 
 就如前面所述，這樣的設計目的表示要執行的行動獨立且互相無關，但若執行仍有順序議題，則應調整註冊的編號，來改變執行的順序。

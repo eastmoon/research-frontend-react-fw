@@ -13,7 +13,7 @@ interface Args {
 }
 
 class c1 extends Simple {
-    execute($args: any) : any {
+    exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.val = 123;
         }
@@ -22,7 +22,7 @@ class c1 extends Simple {
 }
 
 class c2 extends Simple {
-    execute($args: any) : any {
+    exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.str = "c2";
         }
@@ -31,26 +31,26 @@ class c2 extends Simple {
 }
 
 class c3 extends Simple {
-    execute() {
+    exec() {
         count += 1;
     }
 }
 
 class c4 extends Simple {
-    execute() {
+    exec() {
         count += 2;
     }
 }
 
 
 // Test case
-describe('Framework.Pattern.Command Tests', () => {
+describe('DEV Framework.Pattern.Command Tests', () => {
     it('Macro command interface', () => {
         let c : ICommand = new Macro();
         assert.property(c, "name");
         assert.typeOf(c.name, "string");
-        assert.property(c, "execute");
-        assert.typeOf(c.execute, "function");
+        assert.property(c, "exec");
+        assert.typeOf(c.exec, "function");
     });
     it('Macro command have Container interface', () => {
         let c : IContainer = new Macro();
@@ -80,11 +80,11 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.equal(m.size, 2);
         assert.equal(a.val, 1);
         assert.equal(a.str, "demo");
-        m.execute(a);
+        m.exec(a);
         assert.equal(a.val, 123);
         assert.equal(a.str, "c2");
         a = { val : 1, str : "demo" };
-        m.execute();
+        m.exec();
         assert.equal(a.val, 1);
         assert.equal(a.str, "demo");
     });
@@ -92,11 +92,11 @@ describe('Framework.Pattern.Command Tests', () => {
         let m : Macro = new Macro();
         m.register("1", new c3());
         m.register("2", new c4());
-        m.execute();
+        m.exec();
         assert.equal(m.size, 2);
         assert.equal(count, 3);
         m.remove("2");
-        m.execute();
+        m.exec();
         assert.equal(count, 4);
     });
 });
