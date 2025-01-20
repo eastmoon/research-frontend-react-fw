@@ -44,7 +44,7 @@ class c4 extends Simple {
 
 
 // Test case
-describe('DEV Framework.Pattern.Command Tests', () => {
+describe('Framework.Pattern.Command Tests', () => {
     it('Simple Command interface', () => {
         let c : ICommand = new Simple();
         assert.property(c, "name");
