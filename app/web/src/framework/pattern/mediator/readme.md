@@ -48,7 +48,7 @@ import { IMediator, Mediator } from "@/framework/pattern/mediator";
 
 以下範本的 ```UIComponet``` 應依據網頁框架改變類別名稱或生成方式。
 
-##### 元件連結事件 ( attachEvent ) 處理事件
+#### 元件連結事件 ( attachEvent ) 處理事件
 
 ```js
 let com = new UIComponent()
@@ -64,7 +64,7 @@ console.log(m.keys); // print 'event'
 
 中介者繼承觀察者的發佈，因此可以用 ```size``` 與 ```keys``` 取回註冊的事件，但若要註冊的元件明則要用 ```count``` 與 ```names```。
 
-##### 元件分離事件 ( detachEvent ) 處理事件
+#### 元件分離事件 ( detachEvent ) 處理事件
 
 ```js
 let com = new UIComponent()
@@ -89,7 +89,7 @@ console.log(m.size); // print 0
 + 指輸入元件名稱 ( name ) 與事件名稱 ( event )，會根據這兩資料，刪除中介者管理資料結構中的處理函數。
 + 只輸入元件名稱 ( name )，則會由中介者管理的資料結構中刪除所有元件關聯的事件與處理函數資料。
 
-##### 指定元件執行事件
+#### 指定元件執行事件
 
 ```js
 let com = new UIComponent()
@@ -102,7 +102,7 @@ m.on(com.name, "event"); // print 'show demo'
 
 中介者使用觸發 ( on ) 會根據元件名稱、事件名稱來尋找要執行的處理函數
 
-##### 廣播給所有登記的元件
+#### 廣播給所有登記的元件
 
 ```js
 let com = new UIComponent()
@@ -117,7 +117,7 @@ m.notify("event"); // print 'show fun' 'show demo'
 
 中介者繼承觀察者的發佈，可以使用通知 ( notify ) 並以事件名稱來尋找要執行的處理函數。
 
-##### 繼承 Mediator 後執行行為並觸發廣播
+#### 繼承 Mediator 後執行行為並觸發廣播
 
 ```js
 let count = 0;

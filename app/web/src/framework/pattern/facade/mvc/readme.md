@@ -6,7 +6,7 @@
 Model-View-Controller ( MVC ) 是常見的互動系統架構樣式，從 MVC 為基礎延伸諸如 [Document-View](https://learn.microsoft.com/en-us/cpp/mfc/document-view-architecture?view=msvc-170)、[MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)、[MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) 多個架構樣式；而架構設計樣式為概念的設計藍圖，將之實踐的框架依據不同語言皆有不同，本設計參考 PrueMVC 的設計概念，並依據現有語言句型進行調整。
 
 ![](./concept.png)
-> from [Proxy](https://refactoring.guru/design-patterns/proxy)
+> from [PrueMVC](https://puremvc.org/)
 
 ## 引用 MVC 模組
 

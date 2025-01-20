@@ -37,7 +37,7 @@ import { TSubscriber, ISubscriber, ISubject, Subject, IPublish, Publisher } from
 
 ## 主題
 
-##### 連結 ( attach ) 處理函數
+#### 連結 ( attach ) 處理函數
 
 ```js
 let s = new Subject();
@@ -46,7 +46,7 @@ s.attach((x : any) => { console.log(x) });
 
 原則上，連結 ( attach ) 可以使用匿名函數，但匿名函數會導致記憶體位置僅有主題知道，會因此無法經由分離 ( detach ) 從主題移除處理函數。
 
-##### 分離 ( detach ) 處理函數
+#### 分離 ( detach ) 處理函數
 
 ```js
 let f = (x : any) => { console.log(x) };
@@ -57,7 +57,7 @@ s.detach(f);
 console.log(s.size); // print 0
 ```
 
-##### 通告 ( notify ) 處理函數
+#### 通告 ( notify ) 處理函數
 
 ```js
 let f = (x : any) => { console.log("f", x) };
@@ -70,7 +70,7 @@ s.notify(1); // print f1
 
 ## 發佈
 
-##### 連結 ( attach )、分離 ( detach ) 處理函數
+#### 連結 ( attach )、分離 ( detach ) 處理函數
 
 ```js
 let f = (x : any) => { console.log(x) };
@@ -81,7 +81,7 @@ p.detach("demo", f);
 
 原則上，發佈類別的連結與分離就是在主題管理邏輯上，讓指定的主題物件連結處理函數。
 
-##### 訂閱 ( subscribe )、反訂閱 ( unsubscribe )
+#### 訂閱 ( subscribe )、反訂閱 ( unsubscribe )
 
 訂閱是讓符合 ```ISubscriber``` 介面的物件可以將處理函數訂閱到目標主題的方式，其訂閱方式共有三種。
 
@@ -138,7 +138,7 @@ p.unsubscribe(subo);
 
 利用類別實作要訂閱的主題，可以讓處理函數可以經由類別得到更多的設計靈活性。
 
-##### 通告 ( notify ) 處理函數
+#### 通告 ( notify ) 處理函數
 
 ```js
 let f = (x : any) => { console.log("f", x) };

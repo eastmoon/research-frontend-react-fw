@@ -10,7 +10,7 @@ Proxy 樣式 ( 代理者樣式 ) 的特徵，是建立一個中介物件，管�
 
 依照文獻，代理者樣式可以包括以下兩個設計：
 
-##### 服務 ( Service )
+#### 服務 ( Service )
 
 服務 ( Service ) 是提供基礎服務操作邏輯的類別，延伸可以依據其服務功能的邏輯設計如下類別：
 
@@ -19,7 +19,7 @@ Proxy 樣式 ( 代理者樣式 ) 的特徵，是建立一個中介物件，管�
 + DBService：對資料庫擷取數據
 + SocketService：對 Socket 操作邏輯
 
-##### 代理者 ( Proxy )
+#### 代理者 ( Proxy )
 
 代理者 ( Prxoy ) 是提供業務邏輯與數據彙整的類別，其類別應基於功能與業務設計邏輯，並宣告與利用相應的服務 ( Service ) 類別。
 
@@ -51,7 +51,7 @@ import { IProxy, Service, Proxy } from "@/framework/pattern/proxy";
 + 執行函數時傳入第二參數，並取回該函數的回應內容。
 + 倘若第一參數無法尋找到函數，則應該回應 ```null``` 數值。
 
-##### 服務的操作函數 ( operation function )
+#### 服務的操作函數 ( operation function )
 
 若以 Service 的操作函數為範本，其執行結果如下：
 
@@ -74,7 +74,7 @@ let res : any = o.op("demo", 123);
 console.log(res); // print 123
 ```
 
-##### 代理者的操作函數 ( operation function )
+#### 代理者的操作函數 ( operation function )
 
 若以 Proxy 的操作函數為範本，在基礎運作邏輯之上增加回應為 Promise 封裝，則設計如下：
 
@@ -116,7 +116,7 @@ o.op("demo", 123)
     });
 ```
 
-##### 代理者的通告
+#### 代理者的通告
 
 代理者 ( Proxy ) 除了操作函數外，還有繼承觀察者的發佈類別，此目的是當操作完成後可直接發動通知，讓偵聽的物件執行相應的處理函數。
 
