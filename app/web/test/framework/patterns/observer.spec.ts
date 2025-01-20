@@ -25,7 +25,7 @@ let sub : ISubscriber = {
 }
 
 // Test case
-describe('DEV Framework.Pattern.Observer Tests', () => {
+describe('Framework.Pattern.Observer Tests', () => {
     it('Subject interface', () => {
         let o : ISubject = new Subject();
         assert.property(o, "attach");
