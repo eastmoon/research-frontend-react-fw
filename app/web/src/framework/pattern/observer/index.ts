@@ -33,7 +33,10 @@ export class Subject implements ISubject {
 
     // Declare class method
     attach($handler : TSubscriber ) : void {
-        this.subscribes.push($handler);
+        let index = this.subscribes.indexOf($handler);
+        if ( index === -1 ) {
+            this.subscribes.push($handler);
+        }
     }
     detach($handler : TSubscriber ) : void {
         let index = this.subscribes.indexOf($handler);
