@@ -56,7 +56,7 @@ let f2 = (x : any) => {
 }
 
 // Test case
-describe('DEV Framework.Pattern.Proxy Tests', () => {
+describe('Framework.Pattern.Proxy Tests', () => {
     it('Service interface', () => {
         let o : IProxy = new Service();
         assert.property(o, "op");
