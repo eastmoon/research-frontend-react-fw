@@ -100,7 +100,7 @@ describe('Framework.Pattern.Observer Tests', () => {
         assert.typeOf(o.notify, "function");
     });
     it('Publisher has container method', () => {
-        let o : IPublish = new Publisher();
+        let o : Publisher = new Publisher();
         assert.instanceOf(o, Container);
         assert.property(o, "register");
         assert.typeOf(o.register, "function");

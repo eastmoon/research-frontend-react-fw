@@ -41,7 +41,7 @@ describe('Framework.Pattern.Mediator Tests', () => {
         assert.typeOf(o.name, "string");
     });
     it('Mediator has Container method', () => {
-        let o : IMediator = new Mediator();
+        let o : Mediator = new Mediator();
         assert.instanceOf(o, Container);
         assert.property(o, "register");
         assert.typeOf(o.register, "function");
