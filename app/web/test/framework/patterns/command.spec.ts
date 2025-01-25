@@ -2,7 +2,7 @@
 import { assert } from "chai";
 
 // Application framework Library
-import { ICommand, Macro, Simple } from "@/framework/pattern/command";
+import { ICommand, Simple, Macro, AsyncMacro } from "@/framework/pattern/command";
 import { IContainer } from "@/framework/pattern/facade/container";
 
 // Declared class or variable
@@ -42,9 +42,27 @@ class c4 extends Simple {
     }
 }
 
+class svc {
+    async fetchCount(amount : number) {
+        return new Promise<number>((resolve) =>
+            setTimeout(() => resolve(amount + 1), 1000)
+        );
+    }
+}
+
+class ac1 extends Simple {
+    async exec($args: any) : Promise<any> {
+        if ($args !== undefined && $args !== null) {
+            let s : svc = new svc();
+            $args.val += await s.fetchCount(5);
+        }
+        return $args;
+    }
+}
+
 
 // Test case
-describe('Framework.Pattern.Command Tests', () => {
+describe('DEV Framework.Pattern.Command Tests', () => {
     it('Simple Command interface', () => {
         let c : ICommand = new Simple();
         assert.property(c, "name");
@@ -136,6 +154,7 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.equal(a.str, "demo");
     });
     it('Macro command method execute without parameter', () => {
+        count = 0;
         let m : Macro = new Macro();
         m.register("1", new c3());
         m.register("2", new c4());
@@ -146,4 +165,30 @@ describe('Framework.Pattern.Command Tests', () => {
         m.exec();
         assert.equal(count, 4);
     });
+    it('Async Macro command method execute with sync command', async () => {
+        count = 0;
+        let m : AsyncMacro = new AsyncMacro();
+        m.register("1", new c3());
+        m.register("2", new c4());
+        await m.exec();
+        assert.equal(m.size, 2);
+        assert.equal(count, 3);
+        m.remove("2");
+        await m.exec();
+        assert.equal(count, 4);
+    });
+    it('Async Macro command method execute with async command', async () => {
+        count = 0;
+        let m : AsyncMacro = new AsyncMacro();
+        let a : Args = { val : 1 };
+        m.register("1", new ac1());
+        m.register("2", new ac1());
+        await m.exec(a);
+        assert.equal(m.size, 2);
+        assert.equal(a.val, 13);
+        m.remove("2");
+        await m.exec(a);
+        assert.equal(m.size, 1);
+        assert.equal(a.val, 19);
+    }).timeout(3010);
 });

@@ -137,3 +137,40 @@ m.register("1", new c2());
 ```
 
 如上修改，則執行順序會從原來的 c1、c2 改變為 c2、c1，需要注意，由於此部分是利用字串排序，因此字母與數字造成的順序影響應納入考量。
+
+#### 非同步巨集
+
+```js
+class svc {
+    async fetchCount(amount : number) {
+        return new Promise<number>((resolve) =>
+            setTimeout(() => resolve(amount + 1), 1000)
+        );
+    }
+}
+
+class ac1 extends Simple {
+    async exec($args: any) : Promise<any> {
+        if ($args !== undefined && $args !== null) {
+            let s : svc = new svc();
+            $args.val += await s.fetchCount(5);
+        }
+        return $args;
+    }
+}
+```
+
+對於非同步 ( asynchronous ) 處理是 JavaScript 中一個重要的議題，例如存取外部資源檔案 ( JSON )、應用介面服務 ( API ) 或是動畫處理 ( Settimeout ) 等動作，都會導致非同步處理程序發生，這樣的結構是避免服務阻斷整體運作；就如同上述範例，一個簡單命令物件 ```ac1``` 宣告使用一個延遲 1 秒執行的運算，倘若未使用 async / await 則會基於同步運行概念執行完畢，且 1 秒後的回應將無人皆收回應。
+
+對此，倘若要處理此類的命令，則應該使用 ```AsyncMacro``` 類別，該類別修改 ```Macro``` 執行的方法，確保依序執行保存的命令時會執行 ```await```；需注意，```AsyncMacro``` 仍可註冊未使用 async / await 的命令，在雲做結果上並無差別。
+
+```js
+// 宣告非同步巨集並註冊命令
+let m : AsyncMacro = new AsyncMacro();
+let a : Args = { val : 1 };
+m.register("1", new ac1());
+m.register("2", new ac1());
+
+// 巨集執行非同步
+await m.exec(a);
+```
