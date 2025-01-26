@@ -5,7 +5,7 @@
     author: jacky.chen
 */
 // Declare libraries
-import { ICommand, Simple, Macro } from "@/framework/pattern/command";
+import { ICommand, Simple, AsyncMacro } from "@/framework/pattern/command";
 import { IContainer } from "@/framework/pattern/facade/container";
 import { TSubscriber, ISubscriber, IPublisher, Publisher } from "@/framework/pattern/observer";
 
@@ -47,7 +47,7 @@ class PipeNode {
     option : string = "or";
 }
 
-export class Pipe extends Macro implements IPipe {
+export class Pipe extends AsyncMacro implements IPipe {
     // Declare member variable
     private bp ?: TPipeBlueprint;
     private bpo ?: TPipeBlueprintOptions;
