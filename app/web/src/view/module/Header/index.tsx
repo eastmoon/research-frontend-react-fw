@@ -1,5 +1,5 @@
 import { Button } from '@/view/component/Button';
-import './header.css';
+import './index.css';
 
 type User = {
   name: string;

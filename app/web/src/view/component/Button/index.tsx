@@ -1,4 +1,4 @@
-import './button.css';
+import './index.css';
 
 export interface ButtonProps {
   /** Is this the principal call to action on the page? */
