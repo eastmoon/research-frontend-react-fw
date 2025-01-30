@@ -73,30 +73,30 @@ export default class Application extends Singleton {
     }
 
     // Execute model operation
-    static op($name : string, $operation : string, $args ?: any) : any {
+    static async op($name : string, $operation : string, $args ?: any) : Promise<any> {
         let self = Application.instance;
         let o : IProxy | null = self.model.retrieve($name);
         if ( o !== null ) {
-            return o.op($operation, $args);
+            return await o.op($operation, $args);
         }
         return null;
     }
 
     // Execute view event
-    static on($name : string, $com : string, $event : string, $args ?: any) : void {
+    static async on($name : string, $com : string, $event : string, $args ?: any) : Promise<void> {
         let self = Application.instance;
         let o : IMediator | null = self.view.retrieve($name);
         if ( o !== null ) {
-            o.on($com, $event, $args);
+            await o.on($com, $event, $args);
         }
     }
 
     // Execute controller command
-    static exec($name : string, $args ?: any) : any {
+    static async exec($name : string, $args ?: any) : Promise<any> {
         let self = Application.instance;
         let o : ICommand | null = self.controller.retrieve($name);
         if ( o !== null ) {
-            return o.exec($args);
+            return await o.exec($args);
         }
         return $args;
     }

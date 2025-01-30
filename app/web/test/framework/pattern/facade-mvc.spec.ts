@@ -26,11 +26,33 @@ let f1 = (x : any) => {
 let f2 = (x : any) => {
     count += (Number(x) + 2);
 }
+let af1 = async (x : any) => {
+    return new Promise<number>((resolve) => {
+      setTimeout(() => {
+        count += (Number(x) + 1);
+        resolve();
+      } , 1000);
+    });
+}
 
 // Declare class
 class SubService extends Service {
     demo($args : any) {
         return { xstr: $args.str, xval : $args.val };
+    }
+}
+
+class AsyncService extends Proxy {
+    fetchCount(amount : number) {
+      return new Promise<number>((resolve) =>
+        setTimeout(() => resolve(amount + 1), 1000)
+      );
+    }
+    async load($args : any) {
+        if ( typeof $args === "number" && $args > 0 ) {
+            return await this.fetchCount($args);
+        }
+        return null;
     }
 }
 class SubMediator extends Mediator {
@@ -49,9 +71,22 @@ class SimpleC2 extends Simple {
         count += 2;
     }
 }
+class AsyncCommand extends Simple {
+    async fetchCount(amount : number) {
+        return new Promise<number>((resolve) =>
+            setTimeout(() => resolve(amount + 1), 1000)
+        );
+    }
+    async exec($args: any) : Promise<any> {
+        if ($args !== undefined && $args !== null) {
+            count += await this.fetchCount($args);
+        }
+        return $args;
+    }
+}
 
 // Test case
-describe('Framework.Pattern.Facade.mvc Tests', () => {
+describe('Framework.Pattern.Facade.MVC Tests', () => {
     it('Application instance retrieve', () => {
         let inst : Application = Application.instance;
         assert.instanceOf(inst, Application);
@@ -140,16 +175,27 @@ describe('Framework.Pattern.Facade.mvc Tests', () => {
         assert.notOk(Application.controller.has(c2.name));
         assert.notOk(Application.controller.has(c3.name));
     });
-    it('Run model operation', () => {
+    it('Run model operation', async () => {
         let ms : IProxy = new SubService();
         Application.register(ms);
         assert.equal(Application.model.size, 1);
         assert.ok(Application.model.has(ms.name));
-        let res : any = Application.op(ms.name, "demo", { str: "123", val: 321 });
+        let res : any = await Application.op(ms.name, "demo", { str: "123", val: 321 });
         assert.property(res, "xstr");
         assert.equal(res.xstr, "123");
         assert.property(res, "xval");
         assert.equal(res.xval, 321);
+        Application.remove(ms);
+        assert.equal(Application.model.size, 0);
+        assert.notOk(Application.model.has(ms.name));
+    });
+    it('Run model operation with async/await', async() => {
+        let ms : IProxy = new AsyncService();
+        Application.register(ms);
+        assert.equal(Application.model.size, 1);
+        assert.ok(Application.model.has(ms.name));
+        let res : any = await Application.op(ms.name, "load", 5);
+        assert.equal(res, 6);
         Application.remove(ms);
         assert.equal(Application.model.size, 0);
         assert.notOk(Application.model.has(ms.name));
@@ -170,6 +216,19 @@ describe('Framework.Pattern.Facade.mvc Tests', () => {
         assert.equal(Application.view.size, 0);
         assert.notOk(Application.view.has(vs.name));
     });
+    it('Run view event with async/await', async () => {
+        let vs : IMediator = new SubMediator();
+        vs.attachEvent("demo1", "click", af1);
+        Application.register(vs);
+        assert.equal(Application.view.size, 1);
+        assert.ok(Application.view.has(vs.name));
+        count = 0;
+        await Application.on(vs.name, "demo1", "click", 1);
+        assert.equal(count, 2);
+        Application.remove(vs);
+        assert.equal(Application.view.size, 0);
+        assert.notOk(Application.view.has(vs.name));
+    });
     it('Run controller command execute', () => {
         let cs : Macro = new Macro("SubMacro");
         cs.register("1", new SimpleC1());
@@ -180,6 +239,18 @@ describe('Framework.Pattern.Facade.mvc Tests', () => {
         count = 0;
         Application.exec(cs.name);
         assert.equal(count, 3);
+        Application.remove(cs);
+        assert.equal(Application.controller.size, 0);
+        assert.notOk(Application.controller.has(cs.name));
+    });
+    it('Run controller command execute with async/await', async () => {
+        let cs : ICommand = new AsyncCommand();
+        Application.register(cs);
+        assert.equal(Application.controller.size, 1);
+        assert.ok(Application.controller.has(cs.name));
+        count = 0;
+        await Application.exec(cs.name, 5);
+        assert.equal(count, 6);
         Application.remove(cs);
         assert.equal(Application.controller.size, 0);
         assert.notOk(Application.controller.has(cs.name));

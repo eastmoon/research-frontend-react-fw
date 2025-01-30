@@ -73,26 +73,26 @@ Application.remove(new Macro());
 #### 執行 Model 操作
 
 ```js
-Application.op("Proxy-name", "operaton-name", {str: "123", val : 123})
+await Application.op("Proxy-name", "operaton-name", {str: "123", val : 123})
 ```
 
-操作詳細運用參考 [Proxy](../../proxy) 說明
+操作詳細運用參考 [Proxy](../../proxy) 說明，依據規範建議使用 async/await 句型執行
 
 #### 執行 View 事件
 
 ```js
-Application.on("View-name", "event-name", {str: "123", val : 123})
+await Application.on("View-name", "event-name", {str: "123", val : 123})
 ```
 
-事件詳細運用參考 [Mediator](../../mediator) 說明
+事件詳細運用參考 [Mediator](../../mediator) 說明，依據規範建議使用 async/await 句型執行
 
 #### 執行 Controller 命令
 
 ```js
-Application.op("Command-name", {str: "123", val : 123})
+Application.exec("Command-name", {str: "123", val : 123})
 ```
 
-命令詳細運用參考 [Command](../../command) 說明
+命令詳細運用參考 [Command](../../command) 說明，依據規範建議使用 async/await 句型執行
 
 #### 執行通告
 
@@ -100,4 +100,4 @@ Application.op("Command-name", {str: "123", val : 123})
 Applicaation.notify("Model | View name", "event-name", {str: "123", val : 123})
 ```
 
-因 Model 與 View 模組有使用到觀察者，因此，通告詳細運用參考 [Observer](../../observer) 說明
+因 Model 與 View 模組有使用到觀察者，因此，通告詳細運用參考 [Observer](../../observer) 說明。

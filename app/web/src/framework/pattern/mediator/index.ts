@@ -12,7 +12,7 @@ export interface IMediator extends IPublisher {
     name : string;
     attachEvent($name : string, $event : string, $handler : TSubscriber) : void;
     detachEvent($name : string, $event ?: string) : void;
-    on($name : string, $event : string, $args : any) : void;
+    on($name : string, $event : string, $args : any) : Promise<void>;
     get count() : number;
     get names() : string[];
 }
