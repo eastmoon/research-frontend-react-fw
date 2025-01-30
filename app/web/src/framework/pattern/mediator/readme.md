@@ -100,7 +100,7 @@ m.attachEvent(com.name, "event", com.handler);
 m.on(com.name, "event"); // print 'show demo'
 ```
 
-中介者使用觸發 ( on ) 會根據元件名稱、事件名稱來尋找要執行的處理函數
+中介者使用觸發 ( on ) 會根據元件名稱、事件名稱來尋找要執行的處理函數，實務觸發可以執行 async / await。
 
 #### 廣播給所有登記的元件
 
