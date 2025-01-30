@@ -119,10 +119,40 @@ export class Pipe extends AsyncMacro implements IPipe {
             // If have pipe controller, process it.
             this.processPipeController();
         } while( this.execQueue.length > 0 )
-        return !!this.execFail ? this.execFail : this.getInputArgs("out");
+        return !!this.execFail ? this.execFail : this.processInputArgs("out");
     }
 
-    private async execNode( $nodeName : string ) {
+    private initialNodesWithoutBuleprint() : void {
+        if (!!!this.bp) {
+            let upnoden : string;
+            let upnode : PipeNode;
+            let node : PipeNode;
+            let keys : string[] = ["in"].concat(Object.keys(this.contents).sort());
+            keys.push("out");
+            keys.forEach((key : string) => {
+                if ( this.nodes[key] === undefined ) { this.nodes[key] = new PipeNode(); }
+                node = this.nodes[key];
+                if (!!node) {
+                    if (!!upnoden) {
+                        node.input = [upnoden];
+                        upnode = this.nodes[upnoden];
+                        if (!!upnode) { upnode.output = [key]; }
+                    }
+                    upnoden = key;
+                }
+            })
+        }
+    }
+
+    protected clearExecQueue() : void {
+        if ( this.execQueue.length > 0 ) {
+            let tmp : string[] = this.execQueue;
+            this.execQueue = [];
+            tmp.length = 0;
+        }
+    }
+
+    protected async execNode( $nodeName : string ) {
         let node : PipeNode = this.nodes[$nodeName];
         if (!!node) {
             node.output.forEach(($tnodeName : string) => {
@@ -131,7 +161,7 @@ export class Pipe extends AsyncMacro implements IPipe {
             if ( $nodeName !== "out" ) {
                 // Retrieve target node information object and filter object.
                 let content : ICommand | null = this.retrieve($nodeName);
-                let args : any = this.getInputArgs($nodeName);
+                let args : any = this.processInputArgs($nodeName);
                 let isStop : boolean = false;
                 // Check "and" option
                 if ( !!node && node.option === "and" ) {
@@ -167,37 +197,7 @@ export class Pipe extends AsyncMacro implements IPipe {
         }
     }
 
-    private initialNodesWithoutBuleprint() : void {
-        if (!!!this.bp) {
-            let upnoden : string;
-            let upnode : PipeNode;
-            let node : PipeNode;
-            let keys : string[] = ["in"].concat(Object.keys(this.contents).sort());
-            keys.push("out");
-            keys.forEach((key : string) => {
-                if ( this.nodes[key] === undefined ) { this.nodes[key] = new PipeNode(); }
-                node = this.nodes[key];
-                if (!!node) {
-                    if (!!upnoden) {
-                        node.input = [upnoden];
-                        upnode = this.nodes[upnoden];
-                        if (!!upnode) { upnode.output = [key]; }
-                    }
-                    upnoden = key;
-                }
-            })
-        }
-    }
-
-    private clearExecQueue() : void {
-        if ( this.execQueue.length > 0 ) {
-            let tmp : string[] = this.execQueue;
-            this.execQueue = [];
-            tmp.length = 0;
-        }
-    }
-
-    private getInputArgs($nodeName : string) : any {
+    protected processInputArgs($nodeName : string) : any {
         let node : PipeNode = this.nodes[$nodeName];
         let out : any = {};
         if (!!this.execArgs) {
@@ -217,7 +217,7 @@ export class Pipe extends AsyncMacro implements IPipe {
         return out;
     }
 
-    private processPipeController() : void {
+    protected processPipeController() : void {
         if ( !!this.execController ) {
             let pc : IPipeController = this.execController;
             if ( !!pc && !!pc.goto ) {
