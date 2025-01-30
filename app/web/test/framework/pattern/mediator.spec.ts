@@ -20,6 +20,14 @@ let f3 = () => {
 let f4 = () => {
     count += 2;
 }
+let af1 = async (x : any) => {
+    return new Promise<number>((resolve) => {
+      setTimeout(() => {
+        count += (Number(x) + 1);
+        resolve(count);
+      } , 1000);
+    });
+}
 class SubMediator extends Mediator {
     do() {
         count = 100;
@@ -122,6 +130,13 @@ describe('Framework.Pattern.Mediator Tests', () => {
         assert.equal(count, 0);
         o.on("demo1", "click", 1);
         assert.equal(count, 2);
+    });
+    it('Mediator can execute event on component with async/await', async () => {
+        let o : IMediator = new Mediator();
+        count = 0;
+        o.attachEvent("demo1", "click", af1);
+        await o.on("demo1", "click", 5);
+        assert.equal(count, 6);
     });
     it('Inherit Mediator and use method to notify evnet', () => {
         let o : SubMediator = new SubMediator();

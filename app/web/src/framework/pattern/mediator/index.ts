@@ -60,10 +60,10 @@ export class Mediator extends Publisher implements IMediator {
             }
         }
     }
-    on($name : string, $event : string, $args ?: any) : void {
+    async on($name : string, $event : string, $args ?: any) : Promise<void> {
         if ( this.components[$name] !== undefined ) {
           let f : TSubscriber | null = this.components[$name].retrieve($event);
-          if ( f !== null ) { f($args); }
+          if ( f !== null ) { await f($args); }
         }
     }
 
