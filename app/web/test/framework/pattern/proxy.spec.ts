@@ -15,6 +15,19 @@ class SubService extends Service {
         return { xstr: $args.str, xval : $args.val };
     }
 }
+class AsyncSubService extends Service {
+    fetchCount(amount : number) {
+      return new Promise<number>((resolve) =>
+        setTimeout(() => resolve(amount + 1), 1000)
+      );
+    }
+    async load($args : any) {
+        if ( typeof $args === "number" && $args > 0 ) {
+            return await this.fetchCount(5);
+        }
+        return null;
+    }
+}
 class ProxyDemo1 extends Proxy {
     success($args : any) {
         if ( typeof $args === "number" && $args > 0 ) {
@@ -29,7 +42,7 @@ class ProxyDemo1 extends Proxy {
 class ProxyDemo2 extends Proxy {
     fetchCount(amount : number) {
       return new Promise<number>((resolve) =>
-        setTimeout(() => resolve(amount + 1), 1)
+        setTimeout(() => resolve(amount + 1), 1000)
       );
     }
     async load($args : any) {
@@ -78,6 +91,12 @@ describe('Framework.Pattern.Proxy Tests', () => {
         assert.property(res, "xval");
         assert.equal(res.xval, data.val);
     });
+    it('Service run async/await operation', async () => {
+        let o : IProxy = new AsyncSubService();
+        let res : any = await o.op("load", 5);
+        assert.isNotNull(res);
+        assert.equal(res, 6);
+    }).timeout(1010);
     it('Proxy interface', () => {
         let o : IProxy = new Proxy();
         assert.property(o, "op");
