@@ -202,3 +202,14 @@ interface IProgressNotify {
 + ```progress``` 為發出事件的管道本身
 + ```args``` 為管道執行時的輸入參數物件身
 + ```result``` 為管道執行時的輸出參數，在 ```onComplete``` 為執行結果，```onError``` 為失敗訊息
+
+## 設計議題
+
+為應對非同步執行問題，Progress 執行過濾器有兩種方式：
+
++ 使用 Iterator.next 概念，讓過濾器取得 Iterator 並決定何時執行。
++ 使用 async / await 概念，讓過濾器自行 await 到動作完成。
+
+現行方式才用 async / await 概念。
+
+這兩者沒有絕對的優劣，前者的設計方式在提供控制器讓過濾器控制，但若整個過程單線且無非同步則會因需撰寫 next 指令使得程式冗餘，後者的設計則需要配合 async / await 的句型撰寫，若撰寫錯誤則會直接略過動作而超出執行預期。
