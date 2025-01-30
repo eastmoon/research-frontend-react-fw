@@ -9,7 +9,7 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   return (
     <div>
-      <input type="checkbox" checked />
+      <input type="checkbox" />
       <label>{label}</label>
     </div>
   );
