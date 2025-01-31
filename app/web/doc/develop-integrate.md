@@ -113,4 +113,4 @@ const config: StorybookConfig = {
 
 Mocha 本身是一套 Node.js 的單元測試服務，在新版導入 Typescript 後，但如何指定使用的 ```tsconfig.ts``` 則成為注意事項，由於早期文獻建議使用 ```ts-node```，在使用上若要指定則要使用 ```TS_NODE_PROJECT``` 環境變數，然而對新版的 Mocha 設定仍有出入。
 
-為了正確引用到路徑別名，參考文獻建議改用 tsx 工具，若有在 ```vite.config.ts``` 設置路徑別名，則會經由此項設定確保在 Mocaha 的測試檔案皆能提取模組物件。
+為了正確引用到路徑別名，參考文獻建議改用 tsx 工具，若有在 ```vite.config.ts``` 設置路徑別名，則會經由此項設定確保在 Mocaha 的測試檔案皆能提取模型物件。

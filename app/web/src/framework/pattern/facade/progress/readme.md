@@ -29,7 +29,7 @@ Progress 框架會基於管道與過濾器 架構為概念，並依賴命令設�
 
 ## 引用 Progress 模組
 
-MVC 其模組包括兩個 Type、四個 Interface、三個 Class。
+Progress 其模組包括兩個 Type、四個 Interface、三個 Class。
 
 ```js
 import { TPipeBlueprintOptions, TPipeBlueprint, IFilter, IPipe, IPipeController, IProgressNotify, Filter, Pipe, Progress } from "@/framework/pattern/facade/progress";

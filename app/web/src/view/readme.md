@@ -1,6 +1,6 @@
 # View
 
-[Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/) 中的視圖 ( View ) 是指 **『視圖 ( View ) 是用來呈現自模組 ( Model ) 取得的資料，並依據使用者操作結果交由制器更新模組與自身。』**，原則上視圖不與模組溝通，但會自控制器、模組取得更新資料的訊號。
+[Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/) 中的視圖 ( View ) 是指 **『視圖 ( View ) 是用來呈現自模型 ( Model ) 取得的資料，並依據使用者操作結果交由制器更新模型與自身。』**，原則上視圖不與模型溝通，但會自控制器、模型取得更新資料的訊號。
 
 視圖無論在 [MVC](https://www.geeksforgeeks.org/mvc-design-pattern/)、[MVP](https://www.geeksforgeeks.org/mvp-model-view-presenter-architecture-pattern-in-android-with-example/)、[MVVM](https://www.geeksforgeeks.org/introduction-to-model-view-view-model-mvvm/) 的架構概念中，本身都不應具有實際資料，僅有互動邏輯；因此，在 MVP、MVVM 演化成將互動邏輯與參數、最終呈現資料儲存於 Presenter、ViweModel，在 React 社群中更有狀態服務 [redux](https://redux.js.org/)、[zustand](https://zustand-demo.pmnd.rs/) 來替代 Presenter 的存在。
 
@@ -13,7 +13,7 @@
 + 中介者會透過通告廣播給事件給所有偵聽的模塊、元件
 + 中介者被觸發執行範圍無法規範，例如可能是存在於頁面的元件、後端取回的訊息自動觸發等
 
-原則上 Presenter 與 Mediator 差別在於負責模塊與元件的數量；若視圖的事件僅屬於自身的邏輯處理、資料整理，應該使用 Presenter；若視圖的事件來自於系統其它視圖、控制器、模組，應該使用 Mediator。
+原則上 Presenter 與 Mediator 差別在於負責模塊與元件的數量；若視圖的事件僅屬於自身的邏輯處理、資料整理，應該使用 Presenter；若視圖的事件來自於系統其它視圖、控制器、模型，應該使用 Mediator。
 
 ## 繼承 MVC 框架
 

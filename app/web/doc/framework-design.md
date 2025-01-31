@@ -33,7 +33,7 @@
     - 導覽 ( Navigation )
         + 基於 Router 路徑解析觸發流程控制
 
-+ [資料模組 ( Model )](../src/model)
++ [資料模型 ( Model )](../src/model)
     - [服務 ( Service )](../src/model/service)
         + 用於執行遠端介面的業務邏輯
         + 僅負責管理發送邏輯

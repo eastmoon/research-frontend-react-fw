@@ -20,7 +20,7 @@ Mediator 樣式 ( 中介者樣式 ) 的特徵，是建立一個中介物件，�
 因此，在實務設計中，對於中介者應該對於互動範圍進行區分：
 
 + 頁面 ( Page )、圖層 ( Layer ) 的狀態登記與觸發，使用 Mediator
-+ 模組 ( Module ) 的狀態管理，使用 Mediator 或 zustand 等狀態管理服務
++ 模塊 ( Module ) 的狀態管理，使用 Mediator 或 zustand 等狀態管理服務
 + 元件 ( Component ) 的狀態管理，使用 zustand 等狀態管理服務
 
 這其中的差別在於 Mediator 的設計本身會包括以下設計：
@@ -29,11 +29,11 @@ Mediator 樣式 ( 中介者樣式 ) 的特徵，是建立一個中介物件，�
 + 對群體進行廣播
 + 行為執行並觸發事件
 
-若僅考慮其中幾項設計，狀態管理的設計會比使用 Mediator 樣式的設計更加簡潔與容易上手，且多數狀態管理工具包括元件的框架更新畫面邏輯；因此，Mediator 應更偏重在視圖 ( View ) 間的行為管理，而非模組、元件的狀態管理。
+若僅考慮其中幾項設計，狀態管理的設計會比使用 Mediator 樣式的設計更加簡潔與容易上手，且多數狀態管理工具包括元件的框架更新畫面邏輯；因此，Mediator 應更偏重在視圖 ( View ) 間的行為管理，而非模塊、元件的狀態管理。
 
 ## 引用 Mediator 模組
 
-Proxy 其模組包括一個 Interface 和一個 Class。
+Mediator 其模組包括一個 Interface 和一個 Class。
 
 ```js
 import { IMediator, Mediator } from "@/framework/pattern/mediator";
