@@ -16,7 +16,7 @@
 
 Progress 框架會基於管道與過濾器 架構為概念，並依賴命令設計樣式為基礎其流程管理，實務項目規劃如下：
 
-+ 過濾器 ( Filter ) 繼承簡易命令 ( Simple Command )
++ 過濾器 ( Filter ) 繼承簡易命令 ( Command Command )
 + 管道 ( Pipe ) 繼承非同步巨集命令 ( AsyncMacro command )
     - 管道預設情況下依據註冊的過濾器名稱，依序名稱順序執行
     - 管道可以透過藍圖規劃註冊的過濾器執行流程
@@ -41,7 +41,7 @@ import { TPipeBlueprintOptions, TPipeBlueprint, IFilter, IPipe, IPipeController,
 + ```IPipe``` 為繼承 ```ICommand```'、```IContainer<ICommand>``` 的管道介面
 + ```IPipeController``` 為管道控制介面
 + ```IProgressNotify``` 為進程通告介面
-+ ```Filter``` 為繼承 ```Simple``` 命令，並實作 ```IFilter``` 的過濾器類別
++ ```Filter``` 為繼承 ```Command``` 命令，並實作 ```IFilter``` 的過濾器類別
 + ```Pipe``` 為繼承 ```AsyncMacro``` 命令，並實作 ```IPipe``` 的管道類別
 + ```Progress``` 為繼承 ```Pipe```，並實作 ```IPublisher``` 的進程類別
 
@@ -108,7 +108,7 @@ p.blueprint(bp, bpo);
 
 #### 巢狀管道
 
-管道可註冊的對象為實作 ```ICommand``` 的類別；因此，可包括 ```Simple```、```Macro```、```AsyncMacro```、```Filter```、```Pipe```、```Progress``` 這些類別。
+管道可註冊的對象為實作 ```ICommand``` 的類別；因此，可包括 ```Command```、```Macro```、```AsyncMacro```、```Filter```、```Pipe```、```Progress``` 這些類別。
 
 ```js
 let f1 : IFilter = new Filter();

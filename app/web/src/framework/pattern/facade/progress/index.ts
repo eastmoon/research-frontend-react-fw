@@ -5,7 +5,7 @@
     author: jacky.chen
 */
 // Declare libraries
-import { ICommand, Simple, AsyncMacro } from "@/framework/pattern/command";
+import { ICommand, Command, AsyncMacro } from "@/framework/pattern/command";
 import { IContainer } from "@/framework/pattern/facade/container";
 import { TSubscriber, ISubscriber, IPublisher, Publisher } from "@/framework/pattern/observer";
 
@@ -38,7 +38,7 @@ export interface IProgressNotify {
 }
 
 // Declare class
-export class Filter extends Simple implements IFilter {}
+export class Filter extends Command implements IFilter {}
 
 class PipeNode {
     input : string[] = [];

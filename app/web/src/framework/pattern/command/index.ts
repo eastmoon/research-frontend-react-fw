@@ -13,7 +13,7 @@ export interface ICommand {
 }
 
 // Declare class
-export class Simple implements ICommand {
+export class Command implements ICommand {
     // Member variable
     name : string;
     // Constructor

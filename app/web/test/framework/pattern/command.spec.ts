@@ -2,7 +2,7 @@
 import { assert } from "chai";
 
 // Application framework Library
-import { ICommand, Simple, Macro, AsyncMacro } from "@/framework/pattern/command";
+import { ICommand, Command, Macro, AsyncMacro } from "@/framework/pattern/command";
 import { IContainer } from "@/framework/pattern/facade/container";
 
 // Declared class or variable
@@ -12,7 +12,7 @@ interface Args {
     str : string;
 }
 
-class c1 extends Simple {
+class c1 extends Command {
     exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.val = 123;
@@ -21,7 +21,7 @@ class c1 extends Simple {
     }
 }
 
-class c2 extends Simple {
+class c2 extends Command {
     exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.str = "c2";
@@ -30,13 +30,13 @@ class c2 extends Simple {
     }
 }
 
-class c3 extends Simple {
+class c3 extends Command {
     exec() {
         count += 1;
     }
 }
 
-class c4 extends Simple {
+class c4 extends Command {
     exec() {
         count += 2;
     }
@@ -50,7 +50,7 @@ class svc {
     }
 }
 
-class ac1 extends Simple {
+class ac1 extends Command {
     async exec($args: any) : Promise<any> {
         if ($args !== undefined && $args !== null) {
             let s : svc = new svc();
@@ -63,23 +63,23 @@ class ac1 extends Simple {
 
 // Test case
 describe('Framework.Pattern.Command Tests', () => {
-    it('Simple Command interface', () => {
-        let c : ICommand = new Simple();
+    it('Command interface', () => {
+        let c : ICommand = new Command();
         assert.property(c, "name");
         assert.typeOf(c.name, "string");
         assert.property(c, "exec");
         assert.typeOf(c.exec, "function");
     });
-    it('Simple command property name', () => {
-        let c : ICommand = new Simple();
+    it('Command property name', () => {
+        let c : ICommand = new Command();
         assert.property(c, "name");
         assert.typeOf(c.name, "string");
-        assert.equal(c.name, "Simple");
-        c = new Simple("demo-simple-command");
+        assert.equal(c.name, "Command");
+        c = new Command("demo-simple-command");
         assert.equal(c.name, "demo-simple-command");
     });
-    it('Simple command method execute with object parameter', () => {
-        let c : ICommand = new Simple();
+    it('Command method execute with object parameter', () => {
+        let c : ICommand = new Command();
         let a : Args = { val : 1, str : "demo" };
         let r : Args = c.exec(a);
         assert.property(r, "val");
@@ -89,8 +89,8 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.typeOf(r.str, "string");
         assert.equal(r.str, "demo");
     });
-    it('Inherit Simple command and execute', () => {
-        class cc extends Simple {
+    it('Inherit Command and execute', () => {
+        class cc extends Command {
             exec($args: any) : any {
                 if ($args !== undefined && $args !== null) {
                     $args.val += 1;
@@ -110,14 +110,14 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.equal(a.val, 3);
         c.exec();
     });
-    it('Macro command interface', () => {
+    it('Macro interface', () => {
         let c : ICommand = new Macro();
         assert.property(c, "name");
         assert.typeOf(c.name, "string");
         assert.property(c, "exec");
         assert.typeOf(c.exec, "function");
     });
-    it('Macro command have Container interface', () => {
+    it('Macro have Container interface', () => {
         let c : IContainer = new Macro();
         assert.property(c, "register");
         assert.typeOf(c.register, "function");
@@ -128,7 +128,7 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.property(c, "has");
         assert.typeOf(c.has, "function");
     });
-    it('Macro command property name', () => {
+    it('Macro property name', () => {
         let c : ICommand = new Macro();
         assert.property(c, "name");
         assert.typeOf(c.name, "string");
@@ -136,7 +136,7 @@ describe('Framework.Pattern.Command Tests', () => {
         c = new Macro("demo-macro-command");
         assert.equal(c.name, "demo-macro-command");
     });
-    it('Macro command method execute with object parameter', () => {
+    it('Macro method execute with object parameter', () => {
         assert.ok( 1 === 1);
         let m : Macro = new Macro(null);
         let a : Args = { val : 1, str : "demo" };
@@ -153,7 +153,7 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.equal(a.val, 1);
         assert.equal(a.str, "demo");
     });
-    it('Macro command method execute without parameter', () => {
+    it('Macro method execute without parameter', () => {
         count = 0;
         let m : Macro = new Macro();
         m.register("1", new c3());
@@ -165,7 +165,7 @@ describe('Framework.Pattern.Command Tests', () => {
         m.exec();
         assert.equal(count, 4);
     });
-    it('Async Macro command method execute with sync command', async () => {
+    it('AsyncMacro method execute with sync command', async () => {
         count = 0;
         let m : AsyncMacro = new AsyncMacro();
         m.register("1", new c3());
@@ -177,7 +177,7 @@ describe('Framework.Pattern.Command Tests', () => {
         await m.exec();
         assert.equal(count, 4);
     });
-    it('Async Macro command method execute with async command', async () => {
+    it('AsyncMacro method execute with async command', async () => {
         count = 0;
         let m : AsyncMacro = new AsyncMacro();
         let a : Args = { val : 1 };

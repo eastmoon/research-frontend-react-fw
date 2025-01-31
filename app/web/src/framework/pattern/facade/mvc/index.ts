@@ -1,5 +1,5 @@
 /*
-    Application, main application system, using singleton-facade pattern.
+    MVC, main application system, using singleton-facade pattern.
     use it to retrieve Views, Models, Controllers.
 
     author: jacky.chen
@@ -18,7 +18,7 @@ function isProps<T>(o : T, prop : string): o is T {
 }
 
 // Singleton class
-export default class Application extends Singleton {
+export default class MVC extends Singleton {
     // Declaare member variable
     model : Container<IProxy>;
     view : Container<IMediator>;
@@ -39,7 +39,7 @@ export default class Application extends Singleton {
     // register content
     // @return : true, register success. false, register fail or parameter input wrong.
     static register($content : any) : boolean {
-        let self = Application.instance;
+        let self = MVC.instance;
         if ($content !== null && $content !== undefined) {
             if ( isProps<IProxy>($content, "name") && isProps<IProxy>($content, "op") ) {
                 return self.model.register($content.name, $content);
@@ -57,7 +57,7 @@ export default class Application extends Singleton {
     // remove content
     // @return : true, remove success. false, remove fail or parameter input wrong.
     static remove($content : any) : boolean {
-      let self = Application.instance;
+      let self = MVC.instance;
       if ($content !== null && $content !== undefined) {
           if ( isProps<IProxy>($content, "name") && isProps<IProxy>($content, "op") ) {
               return self.model.remove($content.name);
@@ -74,7 +74,7 @@ export default class Application extends Singleton {
 
     // Execute model operation
     static async op($name : string, $operation : string, $args ?: any) : Promise<any> {
-        let self = Application.instance;
+        let self = MVC.instance;
         let o : IProxy | null = self.model.retrieve($name);
         if ( o !== null ) {
             return await o.op($operation, $args);
@@ -84,7 +84,7 @@ export default class Application extends Singleton {
 
     // Execute view event
     static async on($name : string, $com : string, $event : string, $args ?: any) : Promise<void> {
-        let self = Application.instance;
+        let self = MVC.instance;
         let o : IMediator | null = self.view.retrieve($name);
         if ( o !== null ) {
             await o.on($com, $event, $args);
@@ -93,7 +93,7 @@ export default class Application extends Singleton {
 
     // Execute controller command
     static async exec($name : string, $args ?: any) : Promise<any> {
-        let self = Application.instance;
+        let self = MVC.instance;
         let o : ICommand | null = self.controller.retrieve($name);
         if ( o !== null ) {
             return await o.exec($args);
@@ -103,7 +103,7 @@ export default class Application extends Singleton {
 
     // Execute model or view notify
     static notify($name : string, $event : string, $args ?: any) : void {
-        let self = Application.instance;
+        let self = MVC.instance;
         let m : any = self.model.retrieve($name);
         let v : any = self.view.retrieve($name);
         let p : IPublisher;
@@ -121,15 +121,15 @@ export default class Application extends Singleton {
     // Declare accessor
     // Static attribute, retrieve view container.
     static get view() : IContainer<IMediator> {
-        return Application.instance.view;
+        return MVC.instance.view;
     }
     // Static attribute, retrieve controller container.
     static get controller() : IContainer<ICommand> {
-        return Application.instance.controller;
+        return MVC.instance.controller;
     }
     // Static attribute, retrieve model container.
     static get model() : IContainer<IProxy> {
-        return Application.instance.model;
+        return MVC.instance.model;
     }
     //
 }

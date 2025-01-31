@@ -13,11 +13,11 @@ Command 樣式 ( 命令樣式 ) 的特徵，是以物件來代表實際業務邏
 Command 其模組包括一個 Interface 和兩個 Class。
 
 ```js
-import { ICommand, Simple, Macro } from "@/framework/pattern/command";
+import { ICommand, Command, Macro } from "@/framework/pattern/command";
 ```
 
 + ```IContainer``` 為介面
-+ ```Simple``` 為基於 ```ICommand``` 實作的簡單命令
++ ```Command``` 為基於 ```ICommand``` 實作的簡單命令
     - 簡單命令用於給自訂命令繼承使用
 + ```Macro``` 為繼承 ```Container<ICommand>``` 並實作 ```ICommand``` 的巨集命令
     - 巨集命令可註冊實作 ```ICommand``` 的命令
@@ -28,9 +28,9 @@ import { ICommand, Simple, Macro } from "@/framework/pattern/command";
 當命令生成為物件時，會依據提供給建構函數的字串為名稱，若沒有提供則用物件名稱為名。
 
 ```js
-let c1 : ICommand = new Simple();
-console.log(c1.name); // print 'Simple'
-let c2 : ICommand = new Simple("Demo")
+let c1 : ICommand = new Command();
+console.log(c1.name); // print 'Command'
+let c2 : ICommand = new Command("Demo")
 console.log(c2.name); // print 'Demo'
 ```
 
@@ -41,7 +41,7 @@ console.log(c2.name); // print 'Demo'
 #### 提供參數物件
 
 ```js
-let c : ICommand = new Simple();
+let c : ICommand = new Command();
 let a : Args = { val : 1, str : "demo" };
 let r : any = c.exec(a);
 ```
@@ -51,7 +51,7 @@ let r : any = c.exec(a);
 #### 不提供參數物件
 
 ```js
-let c : ICommand = new Simple();
+let c : ICommand = new Command();
 c.exec();
 ```
 
@@ -65,14 +65,14 @@ c.exec();
 
 ```js
 // 宣告自定簡單命令
-class c1 extends Simple {
+class c1 extends Command {
     exec($args: any) : any {
         $args.val = 123;
         return $args;
     }
 }
 
-class c2 extends Simple {
+class c2 extends Command {
     exec($args: any) : any {
         $args.str = "c2";
         return $args;
@@ -93,7 +93,7 @@ console.log(a); // print { val : 123, str : "c2" }
 就如前面所述，巨集執行時會依據註冊的命令修改傳入的參數物件；但需要注意，倘若巨集執行時不提供參數物件 ```m.execute()``` 則會因為註冊命令沒有防護參數物件為 undefined 的狀態導致異常；因此，若命令有修改參數物件的邏輯，應該如下增加防護措施避免巨集錯誤執行。
 
 ```js
-class c1 extends Simple {
+class c1 extends Command {
     exec($args: any) : any {
         // 增加檢查程式確保傳入的 args 不為 undefined 或 null
         if ($args !== undefined && $args !== null) {
@@ -108,13 +108,13 @@ class c1 extends Simple {
 
 ```js
 // 宣告自定簡單命令
-class c1 extends Simple {
+class c1 extends Command {
     exec() {
         console.log(1234);
     }
 }
 
-class c2 extends Simple {
+class c2 extends Command {
     exec() {
         console.log(5678);
     }
@@ -149,7 +149,7 @@ class svc {
     }
 }
 
-class ac1 extends Simple {
+class ac1 extends Command {
     async exec($args: any) : Promise<any> {
         if ($args !== undefined && $args !== null) {
             let s : svc = new svc();

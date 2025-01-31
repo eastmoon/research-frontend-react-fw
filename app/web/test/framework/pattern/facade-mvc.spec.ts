@@ -2,11 +2,11 @@
 import { assert } from "chai";
 
 // Application framework Library
-import Application from "@/framework/pattern/facade/mvc";
+import MVC from "@/framework/pattern/facade/mvc";
 import { Container } from "@/framework/pattern/facade/container";
 import { IProxy, Service, Proxy } from "@/framework/pattern/proxy";
 import { IMediator, Mediator } from "@/framework/pattern/mediator";
-import { ICommand, Simple, Macro } from "@/framework/pattern/command";
+import { ICommand, Command, Macro } from "@/framework/pattern/command";
 
 // Declare variable
 let m1 : IProxy = new Service();
@@ -14,7 +14,7 @@ let m2 : IProxy = new Proxy();
 let m3 : IProxy = new Proxy("demo-model");
 let v1 : IMediator = new Mediator();
 let v2 : IMediator = new Mediator("demo-view");
-let c1 : ICommand = new Simple();
+let c1 : ICommand = new Command();
 let c2 : ICommand = new Macro();
 let c3 : ICommand = new Macro("demo-controller");
 let count = 0;
@@ -61,17 +61,17 @@ class SubMediator extends Mediator {
         this.notify("click", 5);
     }
 }
-class SimpleC1 extends Simple {
+class CommandC1 extends Command {
     exec() {
         count += 1;
     }
 }
-class SimpleC2 extends Simple {
+class CommandC2 extends Command {
     exec() {
         count += 2;
     }
 }
-class AsyncCommand extends Simple {
+class AsyncCommand extends Command {
     async fetchCount(amount : number) {
         return new Promise<number>((resolve) =>
             setTimeout(() => resolve(amount + 1), 1000)
@@ -87,200 +87,200 @@ class AsyncCommand extends Simple {
 
 // Test case
 describe('Framework.Pattern.Facade.MVC Tests', () => {
-    it('Application instance retrieve', () => {
-        let inst : Application = Application.instance;
-        assert.instanceOf(inst, Application);
+    it('MVC instance retrieve', () => {
+        let inst : MVC = MVC.instance;
+        assert.instanceOf(inst, MVC);
         assert.ok(typeof inst !== "undefined" && typeof inst === "object");
     });
-    it('Application retrieve Model container', () => {
-        assert.instanceOf(Application.model, Container);
-        assert.property(Application.model, "register");
-        assert.typeOf(Application.model.register, "function");
-        assert.property(Application.model, "remove");
-        assert.typeOf(Application.model.remove, "function");
-        assert.property(Application.model, "retrieve");
-        assert.typeOf(Application.model.retrieve, "function");
-        assert.property(Application.model, "has");
-        assert.typeOf(Application.model.has, "function");
+    it('MVC retrieve Model container', () => {
+        assert.instanceOf(MVC.model, Container);
+        assert.property(MVC.model, "register");
+        assert.typeOf(MVC.model.register, "function");
+        assert.property(MVC.model, "remove");
+        assert.typeOf(MVC.model.remove, "function");
+        assert.property(MVC.model, "retrieve");
+        assert.typeOf(MVC.model.retrieve, "function");
+        assert.property(MVC.model, "has");
+        assert.typeOf(MVC.model.has, "function");
     });
-    it('Application retrieve View container', () => {
-        assert.instanceOf(Application.view, Container);
-        assert.property(Application.view, "register");
-        assert.typeOf(Application.view.register, "function");
-        assert.property(Application.view, "remove");
-        assert.typeOf(Application.view.remove, "function");
-        assert.property(Application.view, "retrieve");
-        assert.typeOf(Application.view.retrieve, "function");
-        assert.property(Application.view, "has");
-        assert.typeOf(Application.view.has, "function");
+    it('MVC retrieve View container', () => {
+        assert.instanceOf(MVC.view, Container);
+        assert.property(MVC.view, "register");
+        assert.typeOf(MVC.view.register, "function");
+        assert.property(MVC.view, "remove");
+        assert.typeOf(MVC.view.remove, "function");
+        assert.property(MVC.view, "retrieve");
+        assert.typeOf(MVC.view.retrieve, "function");
+        assert.property(MVC.view, "has");
+        assert.typeOf(MVC.view.has, "function");
     });
-    it('Application retrieve Controller container', () => {
-        assert.instanceOf(Application.controller, Container);
-        assert.property(Application.controller, "register");
-        assert.typeOf(Application.controller.register, "function");
-        assert.property(Application.controller, "remove");
-        assert.typeOf(Application.controller.remove, "function");
-        assert.property(Application.controller, "retrieve");
-        assert.typeOf(Application.controller.retrieve, "function");
-        assert.property(Application.controller, "has");
-        assert.typeOf(Application.controller.has, "function");
+    it('MVC retrieve Controller container', () => {
+        assert.instanceOf(MVC.controller, Container);
+        assert.property(MVC.controller, "register");
+        assert.typeOf(MVC.controller.register, "function");
+        assert.property(MVC.controller, "remove");
+        assert.typeOf(MVC.controller.remove, "function");
+        assert.property(MVC.controller, "retrieve");
+        assert.typeOf(MVC.controller.retrieve, "function");
+        assert.property(MVC.controller, "has");
+        assert.typeOf(MVC.controller.has, "function");
     });
     it('Model register', () => {
-        Application.register(m1);
-        Application.register(m2);
-        Application.register(m3);
-        assert.equal(Application.model.size, 3);
-        assert.ok(Application.model.has(m1.name));
-        assert.ok(Application.model.has(m2.name));
-        assert.ok(Application.model.has(m3.name));
+        MVC.register(m1);
+        MVC.register(m2);
+        MVC.register(m3);
+        assert.equal(MVC.model.size, 3);
+        assert.ok(MVC.model.has(m1.name));
+        assert.ok(MVC.model.has(m2.name));
+        assert.ok(MVC.model.has(m3.name));
     });
     it('View register', () => {
-        Application.register(v1);
-        Application.register(v2);
-        assert.equal(Application.view.size, 2);
-        assert.ok(Application.view.has(v1.name));
-        assert.ok(Application.view.has(v2.name));
+        MVC.register(v1);
+        MVC.register(v2);
+        assert.equal(MVC.view.size, 2);
+        assert.ok(MVC.view.has(v1.name));
+        assert.ok(MVC.view.has(v2.name));
     });
     it('Controller register', () => {
-        Application.register(c1);
-        Application.register(c2);
-        Application.register(c3);
-        assert.equal(Application.controller.size, 3);
-        assert.ok(Application.controller.has(c1.name));
-        assert.ok(Application.controller.has(c2.name));
-        assert.ok(Application.controller.has(c3.name));
+        MVC.register(c1);
+        MVC.register(c2);
+        MVC.register(c3);
+        assert.equal(MVC.controller.size, 3);
+        assert.ok(MVC.controller.has(c1.name));
+        assert.ok(MVC.controller.has(c2.name));
+        assert.ok(MVC.controller.has(c3.name));
     });
     it('Model remove', () => {
-        Application.remove(m1);
-        Application.remove(m2);
-        Application.remove(m3);
-        assert.equal(Application.model.size, 0);
-        assert.notOk(Application.model.has(m1.name));
-        assert.notOk(Application.model.has(m2.name));
-        assert.notOk(Application.model.has(m3.name));
+        MVC.remove(m1);
+        MVC.remove(m2);
+        MVC.remove(m3);
+        assert.equal(MVC.model.size, 0);
+        assert.notOk(MVC.model.has(m1.name));
+        assert.notOk(MVC.model.has(m2.name));
+        assert.notOk(MVC.model.has(m3.name));
     });
     it('View remove', () => {
-        Application.remove(v1);
-        Application.remove(v2);
-        assert.equal(Application.view.size, 0);
-        assert.notOk(Application.view.has(v1.name));
-        assert.notOk(Application.view.has(v2.name));
+        MVC.remove(v1);
+        MVC.remove(v2);
+        assert.equal(MVC.view.size, 0);
+        assert.notOk(MVC.view.has(v1.name));
+        assert.notOk(MVC.view.has(v2.name));
     });
     it('Controller remove', () => {
-        Application.remove(c1);
-        Application.remove(c2);
-        Application.remove(c3);
-        assert.equal(Application.controller.size, 0);
-        assert.notOk(Application.controller.has(c1.name));
-        assert.notOk(Application.controller.has(c2.name));
-        assert.notOk(Application.controller.has(c3.name));
+        MVC.remove(c1);
+        MVC.remove(c2);
+        MVC.remove(c3);
+        assert.equal(MVC.controller.size, 0);
+        assert.notOk(MVC.controller.has(c1.name));
+        assert.notOk(MVC.controller.has(c2.name));
+        assert.notOk(MVC.controller.has(c3.name));
     });
     it('Run model operation', async () => {
         let ms : IProxy = new SubService();
-        Application.register(ms);
-        assert.equal(Application.model.size, 1);
-        assert.ok(Application.model.has(ms.name));
-        let res : any = await Application.op(ms.name, "demo", { str: "123", val: 321 });
+        MVC.register(ms);
+        assert.equal(MVC.model.size, 1);
+        assert.ok(MVC.model.has(ms.name));
+        let res : any = await MVC.op(ms.name, "demo", { str: "123", val: 321 });
         assert.property(res, "xstr");
         assert.equal(res.xstr, "123");
         assert.property(res, "xval");
         assert.equal(res.xval, 321);
-        Application.remove(ms);
-        assert.equal(Application.model.size, 0);
-        assert.notOk(Application.model.has(ms.name));
+        MVC.remove(ms);
+        assert.equal(MVC.model.size, 0);
+        assert.notOk(MVC.model.has(ms.name));
     });
     it('Run model operation with async/await', async() => {
         let ms : IProxy = new AsyncService();
-        Application.register(ms);
-        assert.equal(Application.model.size, 1);
-        assert.ok(Application.model.has(ms.name));
-        let res : any = await Application.op(ms.name, "load", 5);
+        MVC.register(ms);
+        assert.equal(MVC.model.size, 1);
+        assert.ok(MVC.model.has(ms.name));
+        let res : any = await MVC.op(ms.name, "load", 5);
         assert.equal(res, 6);
-        Application.remove(ms);
-        assert.equal(Application.model.size, 0);
-        assert.notOk(Application.model.has(ms.name));
+        MVC.remove(ms);
+        assert.equal(MVC.model.size, 0);
+        assert.notOk(MVC.model.has(ms.name));
     });
     it('Run view event', () => {
         let vs : IMediator = new SubMediator();
         vs.attachEvent("demo1", "click", f1);
         vs.attachEvent("demo2", "click", f2);
-        Application.register(vs);
-        assert.equal(Application.view.size, 1);
-        assert.ok(Application.view.has(vs.name));
+        MVC.register(vs);
+        assert.equal(MVC.view.size, 1);
+        assert.ok(MVC.view.has(vs.name));
         count = 0;
-        Application.on(vs.name, "demo1", "click", 1);
+        MVC.on(vs.name, "demo1", "click", 1);
         assert.equal(count, 2);
-        Application.on(vs.name, "demo2", "click", 2);
+        MVC.on(vs.name, "demo2", "click", 2);
         assert.equal(count, 6);
-        Application.remove(vs);
-        assert.equal(Application.view.size, 0);
-        assert.notOk(Application.view.has(vs.name));
+        MVC.remove(vs);
+        assert.equal(MVC.view.size, 0);
+        assert.notOk(MVC.view.has(vs.name));
     });
     it('Run view event with async/await', async () => {
         let vs : IMediator = new SubMediator();
         vs.attachEvent("demo1", "click", af1);
-        Application.register(vs);
-        assert.equal(Application.view.size, 1);
-        assert.ok(Application.view.has(vs.name));
+        MVC.register(vs);
+        assert.equal(MVC.view.size, 1);
+        assert.ok(MVC.view.has(vs.name));
         count = 0;
-        await Application.on(vs.name, "demo1", "click", 1);
+        await MVC.on(vs.name, "demo1", "click", 1);
         assert.equal(count, 2);
-        Application.remove(vs);
-        assert.equal(Application.view.size, 0);
-        assert.notOk(Application.view.has(vs.name));
+        MVC.remove(vs);
+        assert.equal(MVC.view.size, 0);
+        assert.notOk(MVC.view.has(vs.name));
     });
     it('Run controller command execute', () => {
         let cs : Macro = new Macro("SubMacro");
-        cs.register("1", new SimpleC1());
-        cs.register("2", new SimpleC2());
-        Application.register(cs);
-        assert.equal(Application.controller.size, 1);
-        assert.ok(Application.controller.has(cs.name));
+        cs.register("1", new CommandC1());
+        cs.register("2", new CommandC2());
+        MVC.register(cs);
+        assert.equal(MVC.controller.size, 1);
+        assert.ok(MVC.controller.has(cs.name));
         count = 0;
-        Application.exec(cs.name);
+        MVC.exec(cs.name);
         assert.equal(count, 3);
-        Application.remove(cs);
-        assert.equal(Application.controller.size, 0);
-        assert.notOk(Application.controller.has(cs.name));
+        MVC.remove(cs);
+        assert.equal(MVC.controller.size, 0);
+        assert.notOk(MVC.controller.has(cs.name));
     });
     it('Run controller command execute with async/await', async () => {
         let cs : ICommand = new AsyncCommand();
-        Application.register(cs);
-        assert.equal(Application.controller.size, 1);
-        assert.ok(Application.controller.has(cs.name));
+        MVC.register(cs);
+        assert.equal(MVC.controller.size, 1);
+        assert.ok(MVC.controller.has(cs.name));
         count = 0;
-        await Application.exec(cs.name, 5);
+        await MVC.exec(cs.name, 5);
         assert.equal(count, 6);
-        Application.remove(cs);
-        assert.equal(Application.controller.size, 0);
-        assert.notOk(Application.controller.has(cs.name));
+        MVC.remove(cs);
+        assert.equal(MVC.controller.size, 0);
+        assert.notOk(MVC.controller.has(cs.name));
     });
     it('Notify with view ', () => {
         let vs : IMediator = new SubMediator();
         vs.attach("move", f1);
         vs.attach("move", f2);
-        Application.register(vs);
-        assert.equal(Application.view.size, 1);
-        assert.ok(Application.view.has(vs.name));
+        MVC.register(vs);
+        assert.equal(MVC.view.size, 1);
+        assert.ok(MVC.view.has(vs.name));
         count = 0;
-        Application.notify(vs.name, "move", 1);
+        MVC.notify(vs.name, "move", 1);
         assert.equal(count, 5);
-        Application.remove(vs);
-        assert.equal(Application.view.size, 0);
-        assert.notOk(Application.view.has(vs.name));
+        MVC.remove(vs);
+        assert.equal(MVC.view.size, 0);
+        assert.notOk(MVC.view.has(vs.name));
     });
     it('Notify with model ', () => {
         let ps : Proxy = new Proxy("SubProxy");
         ps.attach("calc", f1);
         ps.attach("calc", f2);
-        Application.register(ps);
-        assert.equal(Application.model.size, 1);
-        assert.ok(Application.model.has(ps.name));
+        MVC.register(ps);
+        assert.equal(MVC.model.size, 1);
+        assert.ok(MVC.model.has(ps.name));
         count = 0;
-        Application.notify(ps.name, "calc", 1);
+        MVC.notify(ps.name, "calc", 1);
         assert.equal(count, 5);
-        Application.remove(ps);
-        assert.equal(Application.model.size, 0);
-        assert.notOk(Application.model.has(ps.name));
+        MVC.remove(ps);
+        assert.equal(MVC.model.size, 0);
+        assert.notOk(MVC.model.has(ps.name));
     });
 });

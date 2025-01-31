@@ -49,7 +49,7 @@ Application.register(new Proxy());
 // 註冊 View
 Application.register(new Mediator());
 // 註冊 Controller
-Application.register(new Simple());
+Application.register(new Command());
 Application.register(new Macro());
 ```
 
@@ -64,7 +64,7 @@ Application.remove(new Proxy());
 // 移除 View
 Application.remove(new Mediator());
 // 移除 Controller
-Application.remove(new Simple());
+Application.remove(new Command());
 Application.remove(new Macro());
 ```
 
