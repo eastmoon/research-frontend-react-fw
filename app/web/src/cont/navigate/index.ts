@@ -6,5 +6,5 @@ import { Progress } from "@/framework/pattern/facade/progress";
 class Navigate extends Progress {}
 
 // Declare instance object
-MVC.register(new Navigate());
+if (!MVC.controller.has("Navigate")) MVC.register(new Navigate());
 export default MVC.controller.retrieve("Navigate");
