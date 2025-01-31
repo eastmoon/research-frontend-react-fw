@@ -2,8 +2,8 @@
 
 框架設計會包括兩個主要架構設計：
 
-+ Model View Controller
-+ Pipe and Filter
++ [Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/)
++ [Pipe and Filter](https://www.geeksforgeeks.org/pipe-and-filter-architecture-system-design/)
 
 此兩個架構設計概念，會基於 [GoF Design Pattern](https://en.wikipedia.org/wiki/Design_Patterns) 一書所述的設計樣式實踐成框架。
 
@@ -33,7 +33,7 @@
     - 導覽 ( Navigation )
         + 基於 Router 路徑解析觸發流程控制
 
-+ 資料模組 ( Model )
++ [資料模組 ( Model )](../src/model)
     - [服務 ( Service )](../src/model/service)
         + 用於執行遠端介面的業務邏輯
         + 僅負責管理發送邏輯
@@ -45,7 +45,7 @@
         + 視圖元件的狀態，亦即 MVP 架構中的 Presenter
         + 基於 React 的狀態設計進行相應設計調整
 
-+ 視圖模塊 ( View )
++ [視圖模塊 ( View )](../src/view)
     - [頁面 ( Page )](../src/view/page)
         + 基於 React 規範，複合數個圖層，以 HTML、CSS、JavaScript 組成的頁面藍圖
         + 頁面負責管理相關的圖層註冊
