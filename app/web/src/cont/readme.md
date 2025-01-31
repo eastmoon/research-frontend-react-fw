@@ -1,6 +1,6 @@
 # Controller
 
-[Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/) 中的控制器 ( Controller ) 是指**『中介視圖 ( View ) 與模組 ( Model ) 的功能邏輯處理，並於執行後更新視圖或模組。』**，對於這些邏輯在不同的軟體系統中各有不同，例如 [Pattern-Oriented Software Architecture](https://en.wikipedia.org/wiki/Pattern-Oriented_Software_Architecture) 中對 MVC 的解釋與範例中，控制器指處理滑鼠、鍵盤訊息處理。
+[Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/) 中的控制器 ( Controller ) 是指 **『中介視圖 ( View ) 與模組 ( Model ) 的功能邏輯處理，並於執行後更新視圖或模組。』**，對於這些邏輯在不同的軟體系統中各有不同，例如 [Pattern-Oriented Software Architecture](https://en.wikipedia.org/wiki/Pattern-Oriented_Software_Architecture) 中對 MVC 的解釋與範例中，控制器指處理滑鼠、鍵盤訊息處理。
 
 控制器需處理的功能因軟體系統不同，主要是因為不同系統、語言、框架提供的基礎功能不同，例如網站的鍵盤滑鼠屬於瀏覽器傳遞給 Document、Element 的事件，若執意分離反而讓視圖 ( View ) 與 控制器 ( Controller ) 職責混淆；這也可以理解由於控制器規模與相應處理被系統處理，反而讓控制器需要設計的功能減少，進而從 MVC 演化成 [MVP](https://www.geeksforgeeks.org/mvp-model-view-presenter-architecture-pattern-in-android-with-example/)、[MVVM](https://www.geeksforgeeks.org/introduction-to-model-view-view-model-mvvm/) 的架構概念，將中介控制部分規範於 Presenter、ViweModel，在 React 社群中更有狀態服務 [redux](https://redux.js.org/)、[zustand](https://zustand-demo.pmnd.rs/) 來替代 Presenter 的存在。
 

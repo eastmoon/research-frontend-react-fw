@@ -25,4 +25,4 @@ Mocha 主要監測  ```test``` 與 ```src/model``` 目錄下的內容，相關�
 # Design document
 
 + [開發環境整合設計](./doc/develop-integrate.md)
-+ [框架設計](doc/design-framework.md)
++ [框架設計](doc/framework-design.md)

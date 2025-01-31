@@ -1,6 +1,6 @@
 # View
 
-[Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/) 中的視圖 ( View ) 是指**『視圖 ( View ) 是用來呈現自模組 ( Model ) 取得的資料，並依據使用者操作結果交由制器更新模組與自身。』**，原則上視圖不與模組溝通，但會自控制器、模組取得更新資料的訊號。
+[Model View Controller](https://www.geeksforgeeks.org/mvc-design-pattern/) 中的視圖 ( View ) 是指 **『視圖 ( View ) 是用來呈現自模組 ( Model ) 取得的資料，並依據使用者操作結果交由制器更新模組與自身。』**，原則上視圖不與模組溝通，但會自控制器、模組取得更新資料的訊號。
 
 視圖無論在 [MVC](https://www.geeksforgeeks.org/mvc-design-pattern/)、[MVP](https://www.geeksforgeeks.org/mvp-model-view-presenter-architecture-pattern-in-android-with-example/)、[MVVM](https://www.geeksforgeeks.org/introduction-to-model-view-view-model-mvvm/) 的架構概念中，本身都不應具有實際資料，僅有互動邏輯；因此，在 MVP、MVVM 演化成將互動邏輯與參數、最終呈現資料儲存於 Presenter、ViweModel，在 React 社群中更有狀態服務 [redux](https://redux.js.org/)、[zustand](https://zustand-demo.pmnd.rs/) 來替代 Presenter 的存在。
 
