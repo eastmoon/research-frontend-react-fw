@@ -5,6 +5,8 @@ import App from '@/view/page'
 import MVC from "@/framework/pattern/facade/mvc";
 import "@/cont/startup";
 import "@/cont/navigate";
+import "@/model/service/api";
+import "@/model/proxy/counter";
 
 console.log( MVC.instance );
 createRoot(document.getElementById('root')!).render(
