@@ -15,11 +15,11 @@
     - [Model View Controller](../src/framework/pattern/facade/mvc)、[testcase](../test/framework/pattern/facade-mvc.spec.ts)
     - [Progress ( Pipe & Filter )](../src/framework/pattern/facade/progress)、[testcase](../test/framework/pattern/facade-progress.spec.ts)
     - [Container](../src/framework/pattern/facade/container)、[testcase](../test/framework/pattern/facade-container.spec.ts)
-+ [Singleton](../src/framework/pattern/facade/singleton)、[testcase](../test/framework/pattern/singleton.spec.ts)
-+ [Observer](../src/framework/pattern/facade/observer)、[testcase](../test/framework/pattern/observer.spec.ts)
-+ [Command](../src/framework/pattern/facade/command)、[testcase](../test/framework/pattern/command.spec.ts)
-+ [Mediator](../src/framework/pattern/facade/mediator)、[testcase](../test/framework/pattern/mediator.spec.ts)
-+ [Proxy](../src/framework/pattern/facade/proxy)、[testcase](../test/framework/pattern/proxy.spec.ts)
++ [Singleton](../src/framework/pattern/singleton)、[testcase](../test/framework/pattern/singleton.spec.ts)
++ [Observer](../src/framework/pattern/observer)、[testcase](../test/framework/pattern/observer.spec.ts)
++ [Command](../src/framework/pattern/command)、[testcase](../test/framework/pattern/command.spec.ts)
++ [Mediator](../src/framework/pattern/mediator)、[testcase](../test/framework/pattern/mediator.spec.ts)
++ [Proxy](../src/framework/pattern/proxy)、[testcase](../test/framework/pattern/proxy.spec.ts)
 
 ## React MVC 框架實用規劃
 
