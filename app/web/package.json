@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev",
-    "mocha": "CHOKIDAR_USEPOLLING=true mocha --config=.mocha/mocharc.json"
+    "mocha": "tsc -b && mocha --config=.mocha/mocharc.json"
   },
   "dependencies": {
     "react": "^18.3.1",
