@@ -1,16 +1,16 @@
 import './index.css'
 import MVC from "@/framework/pattern/facade/mvc";
 import ContentMediator, { useStore } from './store';
-let intevalId : Number = 0;
+let intevalId : number = 0;
 
 function Content() {
   const { count, inc } = useStore()
-  ContentMediator.attachEvent("main", "onfocus", inc);
+  if (!!ContentMediator) ContentMediator.attachEvent("main", "onfocus", inc);
 
   if (intevalId === 0) {
-      intevalId = setInterval(() => {
-          if ( (count % 2) === 0)
-              ContentMediator.on("main", "onfocus");
+      intevalId = window.setInterval(() => {
+          if ( (count % 2) === 0 && !!ContentMediator)
+              ContentMediator.on("main", "onfocus", {});
           else
               MVC.on("Content", "main", "onfocus");
       }, 1000);

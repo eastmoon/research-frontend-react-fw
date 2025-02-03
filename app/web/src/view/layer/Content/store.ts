@@ -5,12 +5,17 @@ import { create } from 'zustand';
 
 // Declare instance object
 if (!MVC.view.has("Content")) MVC.register(new Mediator("Content"));
-let instance : Mediator = MVC.view.retrieve("Content");
-export default instance;
+export default MVC.view.retrieve("Content");
 
 //
-export const useStore = create((set) => ({
+export interface ContentStore {
+  count: number
+  inc: (state: any) => void
+  dec: (state: any) => void
+}
+
+export const useStore = create<ContentStore>((set) => ({
   count: 1,
-  inc: () => set((state) => ({ count: state.count + 1 })),
-  dec: () => set((state) => ({ count: state.count - 1 })),
+  inc: () => set((state : any) => ({ count: state.count + 1 })),
+  dec: () => set((state : any) => ({ count: state.count - 1 })),
 }));
