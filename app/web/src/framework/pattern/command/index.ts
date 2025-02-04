@@ -68,7 +68,7 @@ export class AsyncMacro extends Container<ICommand> implements ICommand {
     // execute
     // Execute algorithm in this object.
     // ref : Using async/await with a forEach loop, https://stackoverflow.com/questions/37576685
-    async exec($args: any) : Promise<any> {
+    async exec($args?: any) : Promise<any> {
         let keys : string[] = Object.keys(this.contents).sort();
         for ( let key of keys ) {
             let c : ICommand = this.contents[key];

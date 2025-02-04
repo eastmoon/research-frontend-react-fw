@@ -2,7 +2,7 @@
 import { assert } from "chai";
 
 // Application framework Library
-import { ISubscriber, ISubject, Subject, IPublish, Publisher } from "@/framework/pattern/observer";
+import { ISubscriber, ISubject, Subject, IPublisher, Publisher } from "@/framework/pattern/observer";
 import { Container } from "@/framework/pattern/facade/container";
 
 // Declare class
@@ -87,7 +87,7 @@ describe('Framework.Pattern.Observer Tests', () => {
         assert.equal(count, 2);
     });
     it('Publisher interface', () => {
-        let o : IPublish = new Publisher();
+        let o : IPublisher = new Publisher();
         assert.property(o, "attach");
         assert.typeOf(o.attach, "function");
         assert.property(o, "detach");
@@ -114,19 +114,19 @@ describe('Framework.Pattern.Observer Tests', () => {
         assert.typeOf(o.size, "number");
     });
     it('Publisher attach handler with subject name', () => {
-        let o : IPublish = new Publisher();
+        let o : Publisher = new Publisher();
         o.attach("demo", f1);
         assert.equal(o.size, 1);
     });
     it('Publisher detach handler with subject name', () => {
-        let o : IPublish = new Publisher();
+        let o : Publisher = new Publisher();
         o.attach("demo", f1);
         assert.equal(o.size, 1);
         o.detach("demo", f1);
         assert.equal(o.size, 0);
     });
     it('Publisher subscribe with ISubscriber', () => {
-        let o : IPublish = new Publisher();
+        let o : Publisher = new Publisher();
         o.subscribe({
             subject: "demo",
             handler: f2
@@ -140,7 +140,7 @@ describe('Framework.Pattern.Observer Tests', () => {
         }
     });
     it('Publisher unsubscribe with ISubscriber', () => {
-        let o : IPublish = new Publisher();
+        let o : Publisher = new Publisher();
         o.subscribe({
             subject: "demo",
             handler: f2
@@ -159,7 +159,7 @@ describe('Framework.Pattern.Observer Tests', () => {
         }
     });
     it('Publisher notify to handler', () => {
-        let o : IPublish = new Publisher();
+        let o : IPublisher = new Publisher();
         count = 0;
         o.attach("demo", f1);
         o.subscribe(sub);
@@ -175,7 +175,7 @@ describe('Framework.Pattern.Observer Tests', () => {
         assert.equal(count, 2);
     });
     it('Publisher notify can empty arguments', () => {
-        let o : IPublish = new Publisher();
+        let o : IPublisher = new Publisher();
         count = 0;
         o.attach("demo", f3);
         o.attach("demo", f4);

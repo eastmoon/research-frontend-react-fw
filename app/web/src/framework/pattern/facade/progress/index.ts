@@ -97,7 +97,7 @@ export class Pipe extends AsyncMacro implements IPipe {
         }
     }
 
-    async exec($args : any) : Promise<any> {
+    override async exec($args : any) : Promise<any> {
         // If blueprint was not exist, create sequence nodes structure with contents.
         this.initialNodesWithoutBuleprint();
         // Remove execute queue
@@ -257,7 +257,7 @@ export class Progress extends Pipe implements IPublisher {
     notify($subject : string, $note ?: any) : void {
         this.publisher.notify($subject, $note);
     }
-    async exec($args : any) : Promise<any> {
+    override async exec($args : any) : Promise<any> {
         let note : IProgressNotify = {
             progress: this,
             args: $args

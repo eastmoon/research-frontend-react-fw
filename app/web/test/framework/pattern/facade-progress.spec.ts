@@ -2,7 +2,7 @@
 import { assert } from "chai";
 
 // Application framework Library
-import { TPipeBlueprintOptions, TPipeBlueprint, IPipe, IPipeController, IProgressNotify, Filter, Pipe, Progress } from "@/framework/pattern/facade/progress";
+import { TPipeBlueprintOptions, TPipeBlueprint, IFilter, IPipe, IPipeController, IProgressNotify, Filter, Pipe, Progress } from "@/framework/pattern/facade/progress";
 import { ICommand } from "@/framework/pattern/command";
 import { Container } from "@/framework/pattern/facade/container";
 import { IPublisher } from "@/framework/pattern/observer";
@@ -23,7 +23,7 @@ class F1 extends Filter {
         super($name);
         this.token = $token;
     }
-    exec( $args : any ) : any {
+    override exec( $args : any ) : any {
         if ( !!$args && typeof $args === "object" ) {
             if (!!!$args["ans"]) { $args["ans"] = "" }
             $args["ans"] += this.token;
@@ -39,7 +39,7 @@ class F2 extends Filter {
         super($name);
         this.token = $token;
     }
-    exec( $args : any ) : any {
+    override exec( $args : any ) : any {
         count += 1;
         if ( !!$args && typeof $args === "object" ) {
             let ans : string = "";
@@ -60,7 +60,7 @@ class F3 extends Filter {
         super($name);
         this.token = $token;
     }
-    exec( $args : any ) : any {
+    override exec( $args : any ) : any {
         if ( !!$args && typeof $args === "object" ) {
             if (!!!$args["ans"]) { $args["ans"] = "" }
             if ( $args["ans"].length > 10 ) {
@@ -84,7 +84,7 @@ class F4 extends Filter {
         super($name);
         this.error = $msg;
     }
-    exec() : any {
+    override exec() : any {
         let pc : IPipeController
         if (!!this.error) {
             pc = { fail: true, data: this.error };
@@ -105,7 +105,7 @@ class svc {
 }
 
 class SFilter extends Filter {
-    exec($args: any) : any {
+    override exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.sval += 5;
         }
@@ -114,7 +114,7 @@ class SFilter extends Filter {
 }
 
 class AFilter extends Filter {
-    async exec($args: any) : Promise<any> {
+    override async exec($args: any) : Promise<any> {
         if ($args !== undefined && $args !== null) {
             let s : svc = new svc();
             $args.aval += await s.fetchCount(5);

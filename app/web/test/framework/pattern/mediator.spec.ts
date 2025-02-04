@@ -77,14 +77,14 @@ describe('Framework.Pattern.Mediator Tests', () => {
         assert.typeOf(o.notify, "function");
     });
     it('Mediator attach event with component name', () => {
-        let o : IMediator = new Mediator();
+        let o : Mediator = new Mediator();
         o.attachEvent("demo1", "click", f1);
         o.attachEvent("demo1", "move", f3);
         assert.equal(o.count, 1);
         assert.equal(o.size, 2);
     });
     it('Mediator detach event with component name', () => {
-        let o : IMediator = new Mediator();
+        let o : Mediator = new Mediator();
         count = 0;
         o.attachEvent("demo1", "click", f1);
         o.attachEvent("demo2", "click", f2);
@@ -97,7 +97,7 @@ describe('Framework.Pattern.Mediator Tests', () => {
         assert.equal(o.size, 0);
     });
     it('Mediator detach by component name', () => {
-        let o : IMediator = new Mediator();
+        let o : Mediator = new Mediator();
         count = 0;
         o.attachEvent("demo1", "click", f1);
         o.attachEvent("demo2", "click", f2);

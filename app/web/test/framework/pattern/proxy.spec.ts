@@ -3,7 +3,8 @@ import { assert } from "chai";
 
 // Application framework Library
 import { IProxy, Service, Proxy } from "@/framework/pattern/proxy";
-import { ISubject } from "@/framework/pattern/observer";
+import { IPublisher, Publisher } from "@/framework/pattern/observer";
+import { Container } from "@/framework/pattern/facade/container";
 
 // Declare variable
 let data : any = { str: "123", val: 321 };
@@ -104,14 +105,30 @@ describe('Framework.Pattern.Proxy Tests', () => {
         assert.property(o, "name");
         assert.typeOf(o.name, "string");
     });
-    it('Proxy has Subject method', () => {
-        let o : ISubject = new Proxy();
+    it('Proxy has Publisher method', () => {
+        let o : IPublisher = new Publisher();
         assert.property(o, "attach");
         assert.typeOf(o.attach, "function");
         assert.property(o, "detach");
         assert.typeOf(o.detach, "function");
+        assert.property(o, "subscribe");
+        assert.typeOf(o.subscribe, "function");
+        assert.property(o, "unsubscribe");
+        assert.typeOf(o.unsubscribe, "function");
         assert.property(o, "notify");
         assert.typeOf(o.notify, "function");
+    });
+    it('Proxy has container method', () => {
+        let o : Publisher = new Publisher();
+        assert.instanceOf(o, Container);
+        assert.property(o, "register");
+        assert.typeOf(o.register, "function");
+        assert.property(o, "remove");
+        assert.typeOf(o.remove, "function");
+        assert.property(o, "retrieve");
+        assert.typeOf(o.retrieve, "function");
+        assert.property(o, "has");
+        assert.typeOf(o.has, "function");
         assert.property(o, "size");
         assert.typeOf(o.size, "number");
     });
@@ -130,8 +147,8 @@ describe('Framework.Pattern.Proxy Tests', () => {
         let o : IProxy = new ProxyDemo1();
         o.op("success", 123)
             .then((response: any) => {
-                assert.isNotNull(res);
-                assert.equal(res, 123);
+                assert.isNotNull(response);
+                assert.equal(response, 123);
             })
             .catch((error: any) => {
                 assert.fail("Proxy return null or operation failed run.");

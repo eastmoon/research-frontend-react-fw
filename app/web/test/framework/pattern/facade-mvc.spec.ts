@@ -30,7 +30,7 @@ let af1 = async (x : any) => {
     return new Promise<number>((resolve) => {
       setTimeout(() => {
         count += (Number(x) + 1);
-        resolve();
+        resolve(count);
       } , 1000);
     });
 }
@@ -62,12 +62,12 @@ class SubMediator extends Mediator {
     }
 }
 class CommandC1 extends Command {
-    exec() {
+    override exec() {
         count += 1;
     }
 }
 class CommandC2 extends Command {
-    exec() {
+    override exec() {
         count += 2;
     }
 }
@@ -77,7 +77,7 @@ class AsyncCommand extends Command {
             setTimeout(() => resolve(amount + 1), 1000)
         );
     }
-    async exec($args: any) : Promise<any> {
+    override async exec($args: any) : Promise<any> {
         if ($args !== undefined && $args !== null) {
             count += await this.fetchCount($args);
         }

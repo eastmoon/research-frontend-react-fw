@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev",
-    "mocha": "tsc -b && mocha --config=.mocha/mocharc.json"
+    "mocha": "tsc -p .mocha/tsconfig.json && mocha --config=.mocha/mocharc.json"
   },
   "dependencies": {
     "react": "^18.3.1",

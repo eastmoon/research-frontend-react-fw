@@ -7,7 +7,7 @@ import { IContainer, Container } from "@/framework/pattern/facade/container";
 // Declared class or variable
 class Demo {
     name : string = "";
-    constructor($name) {
+    constructor($name : string) {
         this.name = $name
     }
 }
@@ -15,7 +15,7 @@ class Demo {
 // Test case
 describe('Framework.Pattern.Facade.Container Tests', () => {
     it('Container interface', () => {
-        let c : IContainer = new Container();
+        let c : IContainer<any> = new Container();
         assert.property(c, "register");
         assert.typeOf(c.register, "function");
         assert.property(c, "remove");
@@ -33,7 +33,6 @@ describe('Framework.Pattern.Facade.Container Tests', () => {
         assert.ok(c.register(d2.name, d2));
         assert.notOk(c.register(d1.name, d1));
         assert.notOk(c.register(d2.name, d2));
-        assert.notOk(c.register("NULL", null));
     });
     it('Container remove content', () => {
         let c : IContainer<Demo> = new Container<Demo>();

@@ -13,7 +13,7 @@ interface Args {
 }
 
 class c1 extends Command {
-    exec($args: any) : any {
+    override exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.val = 123;
         }
@@ -22,7 +22,7 @@ class c1 extends Command {
 }
 
 class c2 extends Command {
-    exec($args: any) : any {
+    override exec($args: any) : any {
         if ($args !== undefined && $args !== null) {
             $args.str = "c2";
         }
@@ -31,13 +31,13 @@ class c2 extends Command {
 }
 
 class c3 extends Command {
-    exec() {
+    override exec() {
         count += 1;
     }
 }
 
 class c4 extends Command {
-    exec() {
+    override exec() {
         count += 2;
     }
 }
@@ -51,7 +51,7 @@ class svc {
 }
 
 class ac1 extends Command {
-    async exec($args: any) : Promise<any> {
+    override async exec($args: any) : Promise<any> {
         if ($args !== undefined && $args !== null) {
             let s : svc = new svc();
             $args.val += await s.fetchCount(5);
@@ -91,7 +91,7 @@ describe('Framework.Pattern.Command Tests', () => {
     });
     it('Inherit Command and execute', () => {
         class cc extends Command {
-            exec($args: any) : any {
+            override exec($args: any) : any {
                 if ($args !== undefined && $args !== null) {
                     $args.val += 1;
                 }
@@ -118,7 +118,7 @@ describe('Framework.Pattern.Command Tests', () => {
         assert.typeOf(c.exec, "function");
     });
     it('Macro have Container interface', () => {
-        let c : IContainer = new Macro();
+        let c : IContainer<ICommand> = new Macro();
         assert.property(c, "register");
         assert.typeOf(c.register, "function");
         assert.property(c, "remove");
@@ -180,7 +180,7 @@ describe('Framework.Pattern.Command Tests', () => {
     it('AsyncMacro method execute with async command', async () => {
         count = 0;
         let m : AsyncMacro = new AsyncMacro();
-        let a : Args = { val : 1 };
+        let a : Args = { val : 1, str: "demo" };
         m.register("1", new ac1());
         m.register("2", new ac1());
         await m.exec(a);
